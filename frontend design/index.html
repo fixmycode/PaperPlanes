@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Paper Plane</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img src="images/mini-logo.png" alt="PaperPlane" id="logo">
+            PaperPlane
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+          <ul class="nav navbar-nav">           
+            <li class="active"><a href="#fakelink">Contactos</a></li>
+          </ul>           
+        </div><!-- /.navbar-collapse -->
+      </nav><!-- /navbar -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h1 class="page-header">Contactos</h1>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="list-group" id="contact-list">
+                <a href="#" class="list-group-item active">
+                  Cras justo odio
+                </a>
+                <a href="#" class="list-group-item">Alex</a>
+                <a href="#" class="list-group-item">Oscar</a>
+                <a href="#" class="list-group-item">Pablo</a>
+                <a href="#" class="list-group-item">JP</a>
+                <a href="#" class="list-group-item">Nico</a>
+                <a href="#" class="list-group-item">Daniel</a>
+                <a href="#" class="list-group-item">Carlos</a>
+                <a href="#" class="list-group-item">Joaquin</a>
+              </div>          
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                <a class="btn btn-primary" id="add-contact-btn" data-toggle="modal" href='#add-contact'>Agregar Contacto</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-md-offset-1" id="chat-container">
+          <div id="chat">
+            
+            <p><span class="text-muted">03:18</span>    <span class="text-info">joshuastine left the room</span></p>
+            <p><span class="text-muted">03:18</span>    <span class="text-info">Feefty left the room</span></p>
+            <p><span class="text-muted">03:18</span>    <span class="text-info">emocakes joined the room</span></p>
+            <p><span class="text-muted">03:21</span>    <span class="text-success">Rommie :</span> Forum Activity: Function inside controller function http://forums.laravel.io/viewtopic.php?id=10403&action=new</p>
+            <p><span class="text-muted">03:26</span>    <span class="text-success">ccovey :</span> TaylorOtwell, had a fun day with Form / Html I <span class="text-success">see :</span>)</p>
+            <p><span class="text-muted">03:26</span>    <span class="text-info">shayneoneill left the room</span></p>
+            <p><span class="text-muted">03:27</span>    <span class="text-success">TaylorOtwell :</span> ccovey: eh, just get lots of little pull requests and it kinda distracts from the "big" pieces of the framework</p>
+            <p><span class="text-muted">03:29</span>    <span class="text-success">ccovey :</span> TaylorOtwell, lol I know, I remember the battle back in beta 1 (ish). :(</p>
+            <p><span class="text-muted">03:34</span>    <span class="text-success">machuga|away :</span> TaylorOtwell yaaa that discussion somehow got carried over into here immediately after</p>
+            <p><span class="text-muted">03:34</span>    <span class="text-success">TaylorOtwell :</span> heh</p>
+            <p><span class="text-muted">03:34</span>    <span class="text-success">machuga|away :</span> well the {{ {{{ discussion</p>
+            <p><span class="text-muted">03:34</span>    <span class="text-info">ashitvora left the room</span></p>
+            <p><span class="text-muted">03:35</span>    <span class="text-info">mckendricks joined the room</span></p>
+            <p><span class="text-muted">03:35</span>    <span class="text-success">machuga|away :</span> A few of them opted to be productive and make a PR to update the docs to show the differences so that should be nice</p>
+            <p><span class="text-muted">03:35</span>    <span class="text-success">emocakes :</span> hai machuga</p>
+            <p><span class="text-muted">03:35</span>    <span class="text-success">emocakes :</span> u and me</p>
+            <p><span class="text-muted">03:35</span>    <span class="text-success">emocakes :</span> 4lyfe</p>
+            <p><span class="text-muted">03:35</span>    <span class="text-success">emocakes :</span> you seen rails 4?</p>
+            <p><span class="text-muted">03:35</span>    <span class="text-success">machuga|away :</span> If nothing else comes from that constant battle, that should be nice</p>
+            <p><span class="text-muted">03:36</span>    <span class="text-success">emocakes :</span> have to upgrade my rc2 projects</p>
+            <p><span class="text-muted">03:36</span>    <span class="text-success">machuga|away :</span> emocakes ya been playing with the RC's a bit in my spare time, haven't toyed with the full release but I think it's close to RC2</p>
+            <p><span class="text-muted">03:36</span>    <span class="text-success">emocakes :</span> ditto</p>
+            <p><span class="text-muted">03:36</span>    <span class="text-success">machuga|away :</span> Glad to see it's out</p>
+            <p><span class="text-muted">03:37</span>    <span class="text-success">machuga|away :</span> Kind of bummed the Queue protocol didn't make it in</p>
+            <p><span class="text-muted">03:37</span>    <span class="text-success">machuga|away :</span> Thought it was a nice concept for folks to have</p>
+            <p><span class="text-muted">03:37</span>    <span class="text-success">Rommie :</span> Forum Activity: [solved]Fresh install of L4 and GIT is not tracking certain dirs http://forums.laravel.io/viewtopic.php?id=10357&action=new</p>
+            <p><span class="text-muted">03:37</span>    <span class="text-success">machuga|away :</span> But now TaylorOtwell has another selling point to use ;)</p>
+            <p><span class="text-muted">03:38</span>    <span class="text-success">TaylorOtwell :</span> machuga|away: queue didn't make it into rails 4 final?</p>
+            <p><span class="text-muted">03:38</span>    <span class="text-success">machuga|away :</span> TaylorOtwell nah, they yanked it out after beta 1 I think</p>
+            <p><span class="text-muted">03:39</span>    <span class="text-info">adamwathan left the room</span></p>
+            <p><span class="text-muted">03:39</span>    <span class="text-success">machuga|away :</span> I think the end result was they didn't feel it was handled in a very railsy way</p>
+            <p><span class="text-muted">03:39</span>    <span class="text-success">resno :</span> im left having an out of date rails app, what should i do?</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">TaylorOtwell :</span> ah</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">TaylorOtwell :</span> i love the Queue in laravel heh</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">emocakes :</span> <3 taylor</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">machuga|away :</span> So I think they mentioned possibly trying again for 4.1 but I haven't been following the discussions much</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">TaylorOtwell :</span> ah</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">TaylorOtwell :</span> keep up with us rails!</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">TaylorOtwell :</span> haha</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">emocakes :</span> queue protocol machuga|away?</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">machuga|away :</span> TaylorOtwell ya it's a great addition</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">machuga|away :</span> emocakes the uniform queue api</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">ccovey :</span> TaylorOtwell, I love the Mail::queue, that syntax is <span class="text-success">slick :</span>)</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">TaylorOtwell :</span> yeah i dig it</p>
+            <p><span class="text-muted">03:40</span>    <span class="text-success">machuga|away :</span> resno blow it up</p>
+            <p><span class="text-muted">03:41</span>    <span class="text-success">resno :</span> machuga|away: if only life was that easy, blow up what you dont like</p>
+            <p><span class="text-muted">03:41</span>    <span class="text-success">ccovey :</span> just quit?! :)</p>
+            <p><span class="text-muted">03:41</span>    <span class="text-info">dsyme_ left the room</span></p>
+            <p><span class="text-muted">03:41</span>    <span class="text-success">machuga|away :</span> Wonder if sidekiq will get popular in PHP at all</p>
+            <p><span class="text-muted">03:41</span>    <span class="text-success">resno :</span> machuga|away: its in radiant cms</p>
+            <p><span class="text-muted">03:41</span>    <span class="text-success">machuga|away :</span> resno it's not?</p>
+            <p><span class="text-muted">03:41</span>    <span class="text-success">machuga|away :</span> Oh shit</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">machuga|away :</span> Quick, list me non extraditing countries!</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">machuga|away :</span> :p</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">machuga :</span> aaaand now the NSA is watching me</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">TaylorOtwell :</span> ha</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">emocakes :</span> <3 nsa</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">resno :</span> great, radient wasnt updated 3 months ago</p>
+            <p><span class="text-muted">03:42</span>    <span class="text-success">emocakes :</span> keeping us all safe from ourselves</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">machuga :</span> At least Laravel will never need a "multithread_safe" toggle</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">TaylorOtwell :</span> true that</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">TaylorOtwell :</span> i do miss threads occsaionally from .NET</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">TaylorOtwell :</span> heh</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-info">wyred joined the room</span></p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">resno :</span> oh hey there TaylorOtwell</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">TaylorOtwell :</span> hey resno</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">machuga :</span> Hah ya I rather like having them again</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">machuga :</span> until I find a ruby lib that absolutely chokes</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-info">wyred_ joined the room</span></p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">resno :</span> you do big things around these parts or something right lol</p>
+            <p><span class="text-muted">03:43</span>    <span class="text-success">TaylorOtwell :</span> machuga: you doing a lot of ruby stuff for work?</p>
+            <p><span class="text-muted">03:44</span>    <span class="text-success">TaylorOtwell :</span> resno: sometimes</p>
+            <p><span class="text-muted">03:44</span>    <span class="text-success">machuga :</span> tip - db_charmer is not actually thread safe -_-</p>
+            <p><span class="text-muted">03:44</span>    <span class="text-success">machuga :</span> TaylorOtwell ya, but I'm mostly working with JS and Node at the moment to get the chat and messaging services setup</p>
+            <p><span class="text-muted">03:44</span>    <span class="text-success">TaylorOtwell :</span> cool</p>
+            <p><span class="text-muted">03:44</span>    <span class="text-success">TaylorOtwell :</span> sounds fun</p>
+            <p><span class="text-muted">03:44</span>    <span class="text-success">machuga :</span> It's pretty fun, but I've had a few rage outs on node and node tooling so far</p>
+            <p><span class="text-muted">03:45</span>    <span class="text-success">TaylorOtwell :</span> haha</p>
+            <p><span class="text-muted">03:45</span>    <span class="text-success">machuga :</span> They seem to make a lot of advances rapidly but it's lacking maturity due to all the past API/ABI breaks</p>
+            <p><span class="text-muted">03:45</span>    <span class="text-success">TaylorOtwell :</span> oh interesting</p>
+            <p><span class="text-muted">03:45</span>    <span class="text-info">w1ll joined the room</span></p>
+            <p><span class="text-muted">03:45</span>    <span class="text-success">machuga :</span> redis-commander is a really nice package for monitoring redis dbs though, available in NPM</p>
+            <p><span class="text-muted">03:45</span>    <span class="text-success">machuga :</span> I really like that</p>
+            <p><span class="text-muted">03:46</span>    <span class="text-info">dsyme joined the room</span></p>
+            <p><span class="text-muted">03:46</span>    <span class="text-success">machuga :</span> Our rails / ruby side is currently focusing on scaling out. Hitting some exciting but painful growing points</p>
+            <p><span class="text-muted">03:47</span>    <span class="text-success">Rommie :</span> Forum Activity: Using jquery file uploader with Laravel 4 http://forums.laravel.io/viewtopic.php?id=10404&action=new</p>
+            <p><span class="text-muted">03:47</span>    <span class="text-info">wyred left the room</span></p>
+            <p><span class="text-muted">03:47</span>    <span class="text-success">TaylorOtwell :</span> machuga: yeah i have used redis-commander… guess i showed it in a laravel screencast once actually</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">machuga :</span> No kidding? neat</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">TaylorOtwell :</span> yeah i showed it in a screencast on cache sections</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">machuga :</span> Just randomly in there?</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">machuga :</span> Oh cool</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">TaylorOtwell :</span> https://vimeo.com/63892510</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">TaylorOtwell :</span> machuga: ^</p>
+            <p><span class="text-muted">03:48</span>    <span class="text-success">machuga :</span> oooooh okay I remember this one</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">ccovey :</span> More screen casts after the book and stuff TaylorOtwell ?</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">machuga :</span> ya fantastic little tool</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">TaylorOtwell :</span> ccovey: maybe so, we'll see</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">TaylorOtwell :</span> ccovey: im sure there will be screencast for whatever is in 4.1</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">machuga :</span> I'm overally rather unpleased with the way it handles exceptions and error though. Like express.js doesn't come with a catch all exception handler like rails/sinatra/rack would</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">machuga :</span> if you hit an exception, it dies</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">TaylorOtwell :</span> ah weird</p>
+            <p><span class="text-muted">03:49</span>    <span class="text-success">ccovey :</span> ah nice, more info is always good!, Just too busy for hte subscription casts?</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">TaylorOtwell :</span> ccovey: yeah no time for that atm</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">machuga :</span> which is /REALLY/ painful in production</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">machuga :</span> so work <span class="text-success">arounds :</span>)</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">ccovey :</span> TaylorOtwell, probably a good problem to have?</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">TaylorOtwell :</span> yeah</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">TaylorOtwell :</span> machuga: yeah i can imagine</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-success">k_89 :</span> setting up error handling is a "subject" in js (both client and server side)</p>
+            <p><span class="text-muted">03:50</span>    <span class="text-info">ashitvora joined the room</span></p>
+            <p><span class="text-muted">03:51</span>    <span class="text-success">machuga :</span> k_89 too true</p>
+            <p><span class="text-muted">03:51</span>    <span class="text-success">k_89 :</span> http://www.slideshare.net/nzakas/enterprise-javascript-error-handling-presentation</p>
+            <p><span class="text-muted">03:51</span>    <span class="text-success">machuga :</span> I just wholly expected the web server to keep it's own process alive. That's what I get for assuming</p>
+            <p><span class="text-muted">03:51</span>    <span class="text-success">k_89 :</span> hehe</p>
+            <p><span class="text-muted">03:51</span>    <span class="text-success">k_89 :</span> thats a good slideshow btw</p>
+            <p><span class="text-muted">03:51</span>    <span class="text-success">machuga :</span> excellent</p>
+            <p><span class="text-muted">03:52</span>    <span class="text-success">machuga :</span> TaylorOtwell how's Snappy handling all the attention? Still rolling along happily?</p>
+            <p><span class="text-muted">03:57</span>    <span class="text-success">Rommie :</span> Forum Activity: Making singular table names the default? http://forums.laravel.io/viewtopic.php?id=10402&action=new</p>
+            <p><span class="text-muted">03:58</span>    <span class="text-info">dsyme left the room</span></p>
+            <p><span class="text-muted">03:58</span>    <span class="text-success">k_89 :</span> scala goes all guns out against the first type of error shown in that slide <span class="text-success">show :</span> null-pointer-exception</p>
+            <p><span class="text-muted">03:59</span>    <span class="text-success">k_89 :</span> eh, wrong cann</p>
+            <p><span class="text-muted">03:59</span>    <span class="text-success">k_89 :</span> channel</p>
+            <p><span class="text-muted">03:59</span>    <span class="text-info">ianhk left the room</span></p>
+            <p><span class="text-muted">04:00</span>    <span class="text-success">Rommie :</span> Forum Activity: Laravel 4 Memory Usage vs CI and other comparison http://forums.laravel.io/viewtopic.php?id=10351&action=new</p>
+            <p><span class="text-muted">04:02</span>    <span class="text-success">Rommie :</span> Stack Overflow: Select all data from database where title is lorem ipsum in Laravel 4 http://stackoverflow.com/questions/17439411/select-all-data-from-database-where-title-is-lorem-ipsum-in-laravel-4</p>
+            <p><span class="text-muted">04:02</span>    <span class="text-info">tpavlek_ left the room</span></p>
+            <p><span class="text-muted">04:02</span>    <span class="text-success">khoitv :</span> Hey guys, how do I select only custom field in Eloquent.</p>
+            <p><span class="text-muted">04:02</span>    <span class="text-success">khoitv :</span> $suggestwords = Engvnm::where('name','LIKE',"%$word%")->get();</p>
+            <p><span class="text-muted">04:02</span>    <span class="text-success">khoitv :</span> I only want to get the "id" field</p>
+            <p><span class="text-muted">04:03</span>    <span class="text-success">ccovey :</span> khoitv, !docs select</p>
+            <p><span class="text-muted">04:03</span>    <span class="text-success">Rommie :</span> khoitv,: ccovey wanted you to see http://four.laravel.com/docs/queries</p>
+            <p><span class="text-muted">04:03</span>    <span class="text-success">khoitv :</span> thanks</p>
+          </div>
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="Mensaje">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </span>         
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+
+
+    <div class="modal fade" id="add-contact">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Crear Contacto</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST" action="#/">
+              <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Nombre</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="name" placeholder="Jon Snow">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ip-address" class="col-sm-3 control-label">Dirección IP</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="ip-address" placeholder="10.0.0.120">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="port" class="col-sm-3 control-label">Puerto</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" id="port" placeholder="54345">
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <input type="submit" class="btn btn-success" value="Crear">
+            </form>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- Load JS here for greater good =============================-->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
+    <script src="js/flatui-checkbox.js"></script>
+    <script src="js/flatui-radio.js"></script>
+    <script src="js/jquery.tagsinput.js"></script>
+    <script src="js/jquery.placeholder.js"></script>
+  </body>
+</html>
