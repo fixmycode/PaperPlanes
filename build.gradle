@@ -1,6 +1,8 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.5
+mainClassName = 'cl.blackbird.paper.Main'
 version = '1.0'
 
 repositories {
