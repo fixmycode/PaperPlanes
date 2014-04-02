@@ -1,5 +1,7 @@
 package cl.blackbird.paper.protocol;
 
+import cl.blackbird.paper.protocol.error.ErrorResponse;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,6 +56,6 @@ public class Request {
     }
 
     public Response handle() {
-        return null;
+        return ErrorResponse.fail(501);
     }
 }
