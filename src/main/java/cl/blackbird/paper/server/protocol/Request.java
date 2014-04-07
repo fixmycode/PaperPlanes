@@ -1,16 +1,16 @@
-package cl.blackbird.paper.protocol;
-
-import cl.blackbird.paper.protocol.error.ErrorResponse;
+package cl.blackbird.paper.server.protocol;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
-
+/**
+ * Modelo de una solicitud HTTP. Se encarga de guardar los datos relacionados con una llamada al servidor, como el
+ * archivo solicitado, el modo de la solicitud y tiene un mapeo de los datos ingresados.
+ */
 public class Request {
     private String mode;
-    private String route;
+    private String path;
     private HashMap<String, String> data;
 
     public String getMode() {
@@ -21,12 +21,12 @@ public class Request {
         this.mode = mode;
     }
 
-    public String getRoute() {
-        return route;
+    public String getPath() {
+        return path;
     }
 
-    public void setRoute(String route) {
-        this.route = route;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getParam(String key){
@@ -40,7 +40,7 @@ public class Request {
     private Request(String mode, String route){
         this.data = new HashMap<String, String>();
         this.mode = mode;
-        this.route = route;
+        this.path = route;
     };
 
     public static Request createFromInput(BufferedReader input) throws IOException {
@@ -50,12 +50,9 @@ public class Request {
         String[] requestParts = requestLine.split("\\s");
         if(requestParts[2].startsWith("HTTP")){
             request = new Request(requestParts[0], requestParts[1]);
-            System.out.println(String.format("Client is asking for route %s", request.getRoute()));
+            System.out.println(String.format("Client is asking for path %s", request.getPath()));
+            //TODO parse the rest of the lines
         }
         return request;
-    }
-
-    public Response handle() {
-        return ErrorResponse.fail(501);
     }
 }

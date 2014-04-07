@@ -3,10 +3,11 @@ package cl.blackbird.paper;
 import cl.blackbird.paper.server.Server;
 
 import java.io.IOException;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 public class Main {
     private static Logger LOG = Logger.getLogger("cl.blackbird.paper");
+
     public static void main(String[] args){
         int port = 7070;
         Server server;

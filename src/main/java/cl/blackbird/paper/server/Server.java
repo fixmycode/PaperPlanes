@@ -1,13 +1,13 @@
 package cl.blackbird.paper.server;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
 
+/**
+ * El programa que crea la puerta de conexión con la red via HTTP. Esta clase en particular se encarga de levantar el
+ * servidor en un hilo del sistema y de crear un nuevo hilo por cada conexión entrante.
+ */
 public class Server {
     private int port;
     private boolean listening = false;
@@ -23,5 +23,9 @@ public class Server {
         while (listening) {
             new ServerThread(socket.accept()).start();
         }
+    }
+
+    public void stop(){
+        this.listening = false;
     }
 }
