@@ -1,0 +1,22 @@
+{
+  "name": "PaperPlane",
+  "version": "0.0.0",
+  "authors": [
+    "mammut <irken.cs@gmail.com>"
+  ],
+  "description": "PaperPlane Chat Service",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "5.*",
+    "angular-resource": "1.2.15",
+    "angular-route": "1.2.15",
+    "angular": "1.2.15"
+  }
+}
