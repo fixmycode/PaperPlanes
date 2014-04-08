@@ -1,19 +1,29 @@
 package cl.blackbird.paper.server.protocol;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 public class Response {
+    private static HashMap<Integer, String> statusMap;
+    static {
+        statusMap = new HashMap<Integer, String>();
+        statusMap.put(200, "OK");
+        statusMap.put(400, "Bad Request");
+        statusMap.put(401, "Unauthorized");
+        statusMap.put(402, "Request Failed");
+        statusMap.put(404, "Not Found");
+        statusMap.put(500, "Server Error");
+        statusMap.put(501, "Not Implemented");
+    }
+
     private int code;
-    private String message;
     private boolean isError;
     private PrintWriter writer;
+    private String contentType;
+
 
     public int getCode() {
         return code;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public boolean isError() {
@@ -24,8 +34,15 @@ public class Response {
         this.code = code;
         if(code >= 400){
             this.isError = true;
-            this.message = Response.status_message(code);
         }
+    }
+
+    public void setContentType(String contentType){
+        this.contentType = contentType;
+    }
+
+    public String getContentType() {
+        return contentType;
     }
 
     public Response(){
@@ -33,7 +50,12 @@ public class Response {
     }
 
     public Response(int code){
+        this(code, "text/plain");
+    }
+
+    public Response(int code, String contentType){
         this.setCode(code);
+        this.setContentType(contentType);
     }
 
     public static Response createForOutput(PrintWriter writer){
@@ -42,18 +64,29 @@ public class Response {
         return response;
     }
 
-    public static String status_message(int code){
-        //TODO define responses
-        return "Unknown";
+    public String getStatusMessage(){
+        String msg;
+        if((msg = Response.statusMap.get(200)) != null){
+            return msg;
+        }
+        return "Unknown Status";
     }
 
     public void write(){
+        this.write(null);
+    }
+
+    public void write(String content){
         if(this.writer != null){
-            this.write(this.writer);
+            this.write(this.writer, content);
         }
     }
 
-    public void write(PrintWriter writer){
-        //TODO response structure
+    public void write(PrintWriter writer, String content){
+        writer.println(String.format("HTTP/1.1 %d %s", this.getCode(), this.getStatusMessage()));
+        writer.println(String.format("Content-Type: %s; charset=utf-8", this.getContentType()));
+        writer.println("");
+        writer.println(content);
+        //TODO pensar en una forma para responder con un buffer de varias líneas.
     }
 }

@@ -27,12 +27,14 @@ public class ServerThread extends Thread {
     public void run(){
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             RequestHandler handler;
             try {
                 handler = Router.getHandler(Request.createFromInput(reader), Response.createForOutput(writer));
                 handler.dispatch();
+                System.out.println("Request dispatched!");
             } catch (ServerException e){
+                e.printStackTrace();
                 e.write(writer);
             }
             socket.close();

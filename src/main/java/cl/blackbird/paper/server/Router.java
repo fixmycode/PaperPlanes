@@ -4,6 +4,8 @@ import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
 
+import java.util.ArrayList;
+
 /**
  * Controla el acceso a los distintos controladores del API usando la información dispuesta por las solicitudes y
  * entregandole al controlador una referencia de esta y el objeto de respuesta que espera el cliente.
@@ -24,8 +26,9 @@ public class Router {
     public static RequestHandler getHandler(Request request, Response response) throws ServerException {
         try {
             Route route = Router.solvePath(request.getPath());
-            return route.getHandler();
+            return route.createHandler(request, response);
         } catch (NullPointerException e){
+            e.printStackTrace();
             throw new ServerException(404);
         }
     }
@@ -37,6 +40,12 @@ public class Router {
      * @return El controlador de esa ruta de archivo
      */
     private static Route solvePath(String path) {
+        ArrayList<Route> routes = (ArrayList<Route>) Server.getConfiguration().getRoutes();
+        for (Route nextRoute : routes) {
+            if (nextRoute.matchingPath(path)) {
+                return nextRoute;
+            }
+        }
         return null;
     }
 }

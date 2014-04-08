@@ -9,6 +9,7 @@ import java.net.ServerSocket;
  * servidor en un hilo del sistema y de crear un nuevo hilo por cada conexión entrante.
  */
 public class Server {
+    private static Configuration configuration;
     private int port;
     private boolean listening = false;
 
@@ -27,5 +28,14 @@ public class Server {
 
     public void stop(){
         this.listening = false;
+        System.out.println("Server stopped");
+    }
+
+    public static void setConfiguration(Configuration config){
+        Server.configuration = config;
+    }
+
+    public static Configuration getConfiguration() {
+        return configuration;
     }
 }

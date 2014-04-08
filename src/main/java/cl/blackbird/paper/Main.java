@@ -1,5 +1,6 @@
 package cl.blackbird.paper;
 
+import cl.blackbird.paper.api.APIConfiguration;
 import cl.blackbird.paper.server.Server;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ public class Main {
 
     public static void main(String[] args){
         int port = 7070;
+        Server.setConfiguration(new APIConfiguration());
         Server server;
         try {
             port = Integer.parseInt(args[0]);

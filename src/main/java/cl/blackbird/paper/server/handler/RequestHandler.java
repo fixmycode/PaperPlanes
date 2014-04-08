@@ -13,8 +13,8 @@ import cl.blackbird.paper.server.ServerException;
  * @see cl.blackbird.paper.server.protocol.Response
  */
 public abstract class RequestHandler {
-    private Request request;
-    private Response response;
+    protected Request request;
+    protected Response response;
 
 
     public RequestHandler(){
@@ -55,6 +55,7 @@ public abstract class RequestHandler {
                 this.delete();
             }
         } catch (UnsupportedOperationException e){
+            e.printStackTrace();
             throw new ServerException(501);
         }
     }

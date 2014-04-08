@@ -51,7 +51,7 @@ public class Request {
         if(requestParts[2].startsWith("HTTP")){
             request = new Request(requestParts[0], requestParts[1]);
             System.out.println(String.format("Client is asking for path %s", request.getPath()));
-            //TODO parse the rest of the lines
+            //TODO entender el resto del request. Hay que expandir Request.
         }
         return request;
     }

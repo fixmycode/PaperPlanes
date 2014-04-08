@@ -1,6 +1,13 @@
 package cl.blackbird.paper.server;
 
 import cl.blackbird.paper.server.handler.RequestHandler;
+import cl.blackbird.paper.server.protocol.Request;
+import cl.blackbird.paper.server.protocol.Response;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Una clase que representa una ruta en el sistema para efectos de separar la configuración de la implementación del
@@ -9,11 +16,28 @@ import cl.blackbird.paper.server.handler.RequestHandler;
  * @see cl.blackbird.paper.server.Router
  */
 public class Route {
-    private RequestHandler handler;
-    private String expression;
+    private Pattern pattern;
+    private Class<?> handlerClass;
 
-    public RequestHandler getHandler() {
-        return handler;
+    public Route(String expression, String handlerClassName) throws ClassNotFoundException {
+        this.pattern = Pattern.compile(expression);
+        this.handlerClass = Class.forName(handlerClassName);
+    }
+
+    public RequestHandler createHandler(Request request, Response response) {
+        try {
+            Constructor<?> constructor = handlerClass.getConstructor(Request.class, Response.class);
+            return (RequestHandler) constructor.newInstance(request, response);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -23,6 +47,7 @@ public class Route {
      * @return verdadero en el caso de que la ruta coincida con la expresión regular.
      */
     public boolean matchingPath(String path){
-        return false;
+        Matcher matcher = pattern.matcher(path);
+        return matcher.matches();
     }
 }
