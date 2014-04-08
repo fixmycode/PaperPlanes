@@ -26,6 +26,7 @@ public class ServerThread extends Thread {
 
     public void run(){
         try {
+            //TODO hacer que Request y Response consuman directamente del socket, de esa forma pueden especificar su propio reader y writer.
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             RequestHandler handler;
