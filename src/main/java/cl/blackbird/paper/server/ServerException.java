@@ -2,7 +2,7 @@ package cl.blackbird.paper.server;
 
 import cl.blackbird.paper.server.protocol.Response;
 
-import java.io.PrintWriter;
+import java.io.OutputStream;
 
 
 public class ServerException extends Exception {
@@ -12,7 +12,7 @@ public class ServerException extends Exception {
         this.response = new Response(code);
     }
 
-    public void write(PrintWriter writer){
-        this.response.write(writer);
+    public void write(OutputStream out){
+        this.response.write();
     }
 }

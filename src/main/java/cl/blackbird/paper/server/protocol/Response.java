@@ -1,5 +1,9 @@
 package cl.blackbird.paper.server.protocol;
 
+import cl.blackbird.paper.server.adapter.ContentAdapter;
+import cl.blackbird.paper.server.adapter.TextAdapter;
+
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
@@ -17,32 +21,27 @@ public class Response {
     }
 
     private int code;
-    private boolean isError;
-    private PrintWriter writer;
-    private String contentType;
+    private OutputStream outputStream;
+    private ContentAdapter adapter;
 
+    public void setAdapter(ContentAdapter adapter){
+        this.adapter = adapter;
+    }
+
+    public ContentAdapter getAdapter(){
+        return this.adapter;
+    }
 
     public int getCode() {
         return code;
     }
 
     public boolean isError() {
-        return isError;
+        return (this.code >= 400);
     }
 
     public void setCode(int code) {
         this.code = code;
-        if(code >= 400){
-            this.isError = true;
-        }
-    }
-
-    public void setContentType(String contentType){
-        this.contentType = contentType;
-    }
-
-    public String getContentType() {
-        return contentType;
     }
 
     public Response(){
@@ -50,17 +49,17 @@ public class Response {
     }
 
     public Response(int code){
-        this(code, "text/plain");
+        this(code, new TextAdapter());
     }
 
-    public Response(int code, String contentType){
+    public Response(int code, ContentAdapter adapter){
         this.setCode(code);
-        this.setContentType(contentType);
+        this.setAdapter(adapter);
     }
 
-    public static Response createForOutput(PrintWriter writer){
+    public static Response createForOutput(OutputStream outputStream){
         Response response = new Response();
-        response.writer = writer;
+        response.outputStream = outputStream;
         return response;
     }
 
@@ -73,20 +72,14 @@ public class Response {
     }
 
     public void write(){
-        this.write(null);
+        this.writeHeaders();
+        this.adapter.writeContent(outputStream);
     }
 
-    public void write(String content){
-        if(this.writer != null){
-            this.write(this.writer, content);
-        }
-    }
-
-    public void write(PrintWriter writer, String content){
+    public void writeHeaders(){
+        PrintWriter writer = new PrintWriter(outputStream, true);
         writer.println(String.format("HTTP/1.1 %d %s", this.getCode(), this.getStatusMessage()));
-        writer.println(String.format("Content-Type: %s; charset=utf-8", this.getContentType()));
+        writer.println(String.format("Content-Type: %s; charset=utf-8", this.adapter.getContentType()));
         writer.println("");
-        writer.println(content);
-        //TODO pensar en una forma para responder con un buffer de varias líneas.
     }
 }

@@ -1,8 +1,10 @@
 package cl.blackbird.paper.api.handler;
 
+import cl.blackbird.paper.server.adapter.JSONAdapter;
 import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
+import org.json.JSONObject;
 
 /**
  * Controla la interacción con un usuario en particular dentro del sistema.
@@ -19,12 +21,14 @@ public class ContactHandler extends RequestHandler {
 
     public ContactHandler(Request request, Response response) {
         super(request, response);
-        this.response.setContentType("application/json");
     }
     @Override
     public void get() {
         //TODO una respuesta real
-        this.response.write("{message: \"it works!\"}");
+        JSONObject json = new JSONObject();
+        json.put("message", "it works!");
+        this.response.setAdapter(new JSONAdapter(json));
+        this.response.write();
     }
 
     @Override
