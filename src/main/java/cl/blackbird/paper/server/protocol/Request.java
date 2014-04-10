@@ -15,6 +15,16 @@ import java.util.Map;
 public class Request {
     private String mode;
     private String path;
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    private String protocol;
     private HashMap<String, String> data;
 
     public String getMode() {
@@ -47,47 +57,49 @@ public class Request {
         this.path = route;
     };
 
-    public static Request createFromInput(InputStream dis) throws IOException {
+    public static Request createFromInput(InputStream input) throws IOException {
         Request request = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int ch;
-        while((ch = dis.read()) != -1) {
+
+        while((ch = input.read()) != -1) {
             baos.write(ch);
             if (ch == '\n') {
-                ch = dis.read();
-                // the second newline??
-                if (ch == '\n' || ch == -1)
+                ch = input.read();
+                if (ch == '\n' || ch == '\r')
                     break;
                 baos.write(ch);
             }
         }
-        System.out.println("OK");
-        String header = new String(baos.toByteArray(), "UTF-8");
-        String[] lines = header.split("\\n");
-        Map<String, String> properties = new LinkedHashMap<String, String>();
-        properties.put("status", lines[0]);
-        properties.put("data", lines[lines.length - 1]);
 
-        for(int i = 1 ; i < lines.length - 2; i++) {
-            if (lines[i] != "") {
-                String[] keyValue = lines[i].split(": ", 2);
-                properties.put(keyValue[0], keyValue[1]);
-            }
+        String headerRequest = new String(baos.toByteArray(), "UTF-8");
+        String[] lines = headerRequest.split("\\n");
+        String[] status = lines[0].split("\\s");
+
+        // Crear el request
+        request = new Request(status[0], status[1]);
+        request.setProtocol(status[2]);
+
+        // Llenar los valores del header
+        for(int i = 1 ; i < lines.length; i++) {
+            String[] keyValue = lines[i].split(": ", 2);
+            request.setParam(keyValue[0], keyValue[1]);
         }
 
-        String[] status = properties.get("status").split("\\s");
-        request = new Request(status[0], status[1]);
+        // Sacar el payload del InputStream
+        if (request.getMode().equals("POST") || request.getMode().equals("PUT")) {
+            baos = new ByteArrayOutputStream();
+            ch = input.read();
+            while((ch = input.read()) != -1) {
+                baos.write(ch);
+                if (ch == '\n' || ch == '\r' || ch == '}'){
+                    break;
+                }
+            }
+            String payload = new String(baos.toByteArray(), "UTF-8");
+            request.setParam("payload", payload);
+        }
 
-
-//        Request request = null;
-//        String requestLine = input.readLine();
-//        System.out.println(requestLine);
-//        String[] requestParts = requestLine.split("\\s");
-//        if(requestParts[2].startsWith("HTTP")){
-//            request = new Request(requestParts[0], requestParts[1]);
-//            System.out.println(String.format("Client is asking for path %s", request.getPath()));
-//            //TODO entender el resto del request. Hay que expandir Request.
-//        }
         return request;
     }
 }
