@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args){
         int port = 7070;
         Server.setConfiguration(new APIConfiguration());
-        Server server;
+        Server server = new Server();
         try {
             port = Integer.parseInt(args[0]);
         } catch (IndexOutOfBoundsException e){
@@ -21,13 +21,11 @@ public class Main {
             LOG.warning("Invalid Port. Server will fallback to 7070.");
         }
         do {
-            server = new Server(port);
             try {
                 server.start();
             } catch (IOException e) {
-                server = null;
-                port++;
+                server.setPort(++port);
             }
-        } while (server == null);
+        } while (!server.isListening());
     }
 }
