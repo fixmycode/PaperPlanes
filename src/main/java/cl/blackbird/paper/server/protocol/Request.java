@@ -1,12 +1,9 @@
 package cl.blackbird.paper.server.protocol;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Modelo de una solicitud HTTP. Se encarga de guardar los datos relacionados con una llamada al servidor, como el
@@ -15,64 +12,130 @@ import java.util.Map;
 public class Request {
     private String mode;
     private String path;
+    private String protocol;
+    private HashMap<String, String> data;
 
+    /**
+     * Retorna el protocolo con el que se ha hecho la solicutud.
+     * @return el protocolo usado por esta solicitud
+     */
     public String getProtocol() {
         return protocol;
     }
 
-    public void setProtocol(String protocol) {
+    /**
+     * Asigna el protocolo con el que se va a realizar esta solicitud.
+     * @param protocol el string del protocolo, en la forma NOMBRE/VERSION
+     */
+    private void setProtocol(String protocol) {
         this.protocol = protocol;
     }
 
-    private String protocol;
-    private HashMap<String, String> data;
-
+    /**
+     * Retorna el modo en que se hizo la solicitud.
+     * @return GET, POST, PUT, DELETE, HEAD
+     */
     public String getMode() {
         return mode;
     }
 
+    /**
+     * Asigna el modo en que se realiza la solicitud.
+     * @param mode el string que representa el modo.
+     */
     private void setMode(String mode) {
-        this.mode = mode;
+        this.mode = mode.toUpperCase();
     }
 
+    /**
+     * Retorna la ruta que se solicitó.
+     * @return un string con la ruta
+     */
     public String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    /**
+     * Asigna la ruta de la solicitud. Es privado para que se cree
+     * solamente una solicitud por ruta.
+     * @param path un string con la ruta solicitada.
+     */
+    private void setPath(String path) {
         this.path = path;
     }
 
+    /**
+     * Separa las partes de la ruta en trozos que pueden ser significantes.
+     * Por ejemplo la ruta '/foo/bar.jpeg' queda como el arreglo ['foo', 'bar.jpeg']
+     * @return un arreglo con las partes de la ruta.
+     */
+    public String[] getPathParts(){
+        String[] parts = this.path.split("/");
+        return parts;
+    }
+
+    /**
+     * Obtiene la última parte de la ruta.
+     * En el caso de la ruta '/foo/bar.jpeg', este método retorna 'bar.jpeg'
+     * @return un string con el final de la ruta.
+     */
+    public String getLastPart(){
+        String[] parts = getPathParts();
+        return parts[parts.length-1];
+    }
+
+    /**
+     * Obtiene un parámetro del request por nombre
+     * @param key el nombre del parámetro
+     * @return el valor del parámetro
+     */
     public String getParam(String key){
         return data.get(key);
     }
 
+    /**
+     * Agrega una nueva entrada al mapa de parámetros
+     * @param key el nombre del parámetro
+     * @param value el valor del parámetro
+     */
     private void setParam(String key, String value){
         data.put(key, value);
     }
 
+    /**
+     * El constructor de solicitudes es privado, solo se espera que los
+     * las nuevas solicitudes sean creadas por un socket
+     * @param mode el modo de la solicitud
+     * @param route la ruta de la solicitud
+     */
     private Request(String mode, String route){
         this.data = new HashMap<String, String>();
-        this.mode = mode;
-        this.path = route;
+        this.setMode(mode);
+        this.setPath(route);
     };
 
+    /**
+     * Un método para crear solicitudes a través de una entrada de socket.
+     * @param input la entrada del socket
+     * @return una instancia de solicitud
+     * @throws IOException en el caso de que no se pueda leer la entrada
+     */
     public static Request createFromInput(InputStream input) throws IOException {
         Request request = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         int ch;
 
         while((ch = input.read()) != -1) {
-            baos.write(ch);
+            outputStream.write(ch);
             if (ch == '\n') {
                 ch = input.read();
                 if (ch == '\n' || ch == '\r')
                     break;
-                baos.write(ch);
+                outputStream.write(ch);
             }
         }
 
-        String headerRequest = new String(baos.toByteArray(), "UTF-8");
+        String headerRequest = new String(outputStream.toByteArray(), "UTF-8");
         String[] lines = headerRequest.split("\\n");
         String[] status = lines[0].split("\\s");
 
@@ -88,15 +151,15 @@ public class Request {
 
         // Sacar el payload del InputStream
         if (request.getMode().equals("POST") || request.getMode().equals("PUT")) {
-            baos = new ByteArrayOutputStream();
+            outputStream = new ByteArrayOutputStream();
             ch = input.read();
             while((ch = input.read()) != -1) {
-                baos.write(ch);
+                outputStream.write(ch);
                 if (ch == '\n' || ch == '\r' || ch == '}'){
                     break;
                 }
             }
-            String payload = new String(baos.toByteArray(), "UTF-8");
+            String payload = new String(outputStream.toByteArray(), "UTF-8");
             request.setParam("payload", payload);
         }
 
