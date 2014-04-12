@@ -2,15 +2,28 @@ package cl.blackbird.paper.server.adapter;
 
 import cl.blackbird.paper.server.Server;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
+import java.nio.file.*;
+import java.util.HashMap;
 
 public class FileAdapter implements ContentAdapter {
     private Path fullPath;
+    private static HashMap<String, String> MIMETypeMap;
+    static {
+        MIMETypeMap = new HashMap<String, String>();
+        MIMETypeMap.put("html", "text/html");
+        MIMETypeMap.put("css",  "text/css");
+        MIMETypeMap.put("js",   "application/javascript");
+        MIMETypeMap.put("png",  "image/png");
+        MIMETypeMap.put("jpg",  "image/jpeg");
+        MIMETypeMap.put("jpeg", "image/jpeg");
+        MIMETypeMap.put("gif",  "image/gif");
+        MIMETypeMap.put("pdf",  "application/pdf");
+        MIMETypeMap.put("map",  "application/x-navimap");
+    }
 
     public FileAdapter(){
         this(null);
@@ -34,19 +47,29 @@ public class FileAdapter implements ContentAdapter {
 
     @Override
     public String getContentType() {
-        if(this.fullPath != null){
-            try {
-                return Files.probeContentType(this.fullPath);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-        return null;
+        String path = this.fullPath.toString();
+        String[] extension = path.split("\\.");
+
+        return FileAdapter.MIMETypeMap.get(extension[extension.length - 1]);
     }
 
     @Override
     public void writeContent(OutputStream out) {
-        //TODO Mandar el archivo
+        FileInputStream in = null;
+
+        try {
+            in = new FileInputStream(this.fullPath.toString());
+
+            int c;
+            while ((c = in.read()) != -1) {
+                out.write(c);
+            }
+            in.close();
+
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
