@@ -8,9 +8,9 @@ import java.util.List;
 
 
 public class APIConfiguration implements Configuration {
-    ArrayList<Route> routes;
-    String handlerClassPath = "cl.blackbird.paper.api.handler";
-    //TODO crear rutas de configuración para el StaticHandler
+    private ArrayList<Route> routes;
+    public final String handlerClassPath = "cl.blackbird.paper.api.handler";
+    public final String homeDir = "~/Desktop/paper/";
 
     public APIConfiguration() {
         this.routes = new ArrayList<Route>();
@@ -31,6 +31,11 @@ public class APIConfiguration implements Configuration {
     @Override
     public List<Route> getRoutes() {
         return routes;
+    }
+
+    @Override
+    public String getHomeDir() {
+        return this.homeDir;
     }
 
     @Override
