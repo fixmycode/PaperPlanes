@@ -38,10 +38,10 @@ public abstract class RequestHandler {
         throw new ServerException(code);
     }
 
-    public abstract void get();
-    public abstract void post();
-    public abstract void put();
-    public abstract void delete();
+    public abstract void get() throws ServerException;
+    public abstract void post() throws ServerException;
+    public abstract void put() throws ServerException;
+    public abstract void delete() throws ServerException;
 
     public void dispatch() throws ServerException {
         try {
