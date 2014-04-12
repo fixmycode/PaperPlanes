@@ -20,8 +20,8 @@ public class APIConfiguration implements Configuration {
     @Override
     public void initRoutes() {
         try {
-            this.addRoute("/v1/contacts", "ContactListHandler");
-            this.addRoute("/v1/contacts/(\\d+)", "ContactHandler");
+            this.addRoute("/api/v1/contacts", "ContactListHandler");
+            this.addRoute("/api/v1/contacts/(\\d+)", "ContactHandler");
             this.addRoute("/.*", "StaticHandler");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -37,4 +37,6 @@ public class APIConfiguration implements Configuration {
     public void addRoute(String expression, String className) throws ClassNotFoundException {
         this.routes.add(new Route(expression, handlerClassPath+"."+className));
     }
+
+    public String getHomeDir() { return "/Users/mammut/Desktop/paper"; }
 }
