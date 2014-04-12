@@ -57,6 +57,8 @@ public abstract class RequestHandler {
         } catch (UnsupportedOperationException e){
             e.printStackTrace();
             throw new ServerException(501);
+        } catch (ServerException e){
+            throw e;
         }
     }
 
