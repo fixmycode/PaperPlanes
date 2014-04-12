@@ -10,7 +10,7 @@ public class TextAdapter implements ContentAdapter {
         this.content = "";
     }
 
-    private void setContent(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
