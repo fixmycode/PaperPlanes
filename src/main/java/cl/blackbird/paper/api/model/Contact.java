@@ -1,23 +1,47 @@
 package cl.blackbird.paper.api.model;
 
-import java.io.Serializable;
+import cl.blackbird.paper.data.BaseModel;
+
 import java.util.Date;
 
 /**
  * Modelo de la clase Contacto para almacenar la información de los contactos en el sistema.
  */
-public class Contact implements Serializable {
-    private int id;
+public class Contact extends BaseModel {
+    private Integer id;
     private String name;
     private String ipAddress;
-    private int port;
+    private Integer port;
     private Date createdAt;
     private Date updatedAt;
 
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
+    @Override
+    public void update(BaseModel model) {
+        Contact contact = (Contact) model;
+        if(contact.getId() != null){
+            this.setId(contact.getId());
+        }
+        if(contact.getName() != null){
+            this.setName(contact.getName());
+        }
+        if(contact.getIpAddress() != null){
+            this.setIpAddress(contact.getIpAddress());
+        }
+        if(contact.getPort() != null){
+            this.setPort(contact.getPort());
+        }
+        if(contact.getCreatedAt() != null){
+            this.setCreatedAt(contact.getCreatedAt());
+        }
+        this.updatedAt = new Date();
+    }
+
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -38,11 +62,11 @@ public class Contact implements Serializable {
         this.ipAddress = ipAddress;
     }
 
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 

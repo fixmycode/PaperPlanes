@@ -42,6 +42,4 @@ public class APIConfiguration implements Configuration {
     public void addRoute(String expression, String className) throws ClassNotFoundException {
         this.routes.add(new Route(expression, handlerClassPath+"."+className));
     }
-
-    public String getHomeDir() { return "/Users/mammut/Desktop/paper"; }
 }
