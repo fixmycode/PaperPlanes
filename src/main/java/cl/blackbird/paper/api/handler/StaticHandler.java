@@ -1,5 +1,6 @@
 package cl.blackbird.paper.api.handler;
 
+import cl.blackbird.paper.server.adapter.FileAdapter;
 import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
@@ -8,12 +9,11 @@ public class StaticHandler extends RequestHandler{
 
     public StaticHandler(Request request, Response response){
         super(request, response);
-        //TODO leer configuración
     }
 
     @Override
     public void get() {
-        //TODO responder con un archivo
+        this.response.setAdapter(new FileAdapter(this.request.getPath()));
         this.response.write();
     }
 
