@@ -88,8 +88,14 @@ public abstract class ModelManager<T extends BaseModel> {
     public List<T> getAll(){
         return this.objectList;
     }
+
     public Integer getNextId(){
         Integer maxId = -1;
+        for(T object : this.objectList){
+            if(object.getId() > maxId){
+                maxId = object.getId();
+            }
+        }
         return ++maxId;
     }
 }
