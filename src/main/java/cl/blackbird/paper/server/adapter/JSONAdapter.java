@@ -31,7 +31,8 @@ public class JSONAdapter implements ContentAdapter {
 
     @Override
     public void writeContent(OutputStream out) {
-        PrintWriter writer = new PrintWriter(out);
+        PrintWriter writer = new PrintWriter(out, true);
         json.write(writer);
+        writer.println();
     }
 }
