@@ -4,7 +4,7 @@ myApp.controller('ContactsController', ['$scope', 'Contact', function($scope, Co
     $scope.contacts = Contact.query();
 
     $scope.submit = function(){
-        var newContact = new Contact({name: $scope.name, ip_address: $scope.ip_address, port: $scope.port});
+        var newContact = new Contact({name: $scope.name, ipAddress: $scope.ip_address, port: $scope.port});
         newContact.$save(function(u, putResponseHeaders) {
             $scope.name      = '';
             $scope.ip_address = '';
