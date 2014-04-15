@@ -111,7 +111,10 @@ public class Request {
     private Request(String mode, String route){
         this.data = new HashMap<String, String>();
         this.setMode(mode);
-        this.setPath(route);
+        if(route.equals("/"))
+            this.setPath("/index.html");
+        else
+            this.setPath(route);
     };
 
     /**
