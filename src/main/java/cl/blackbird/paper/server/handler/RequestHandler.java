@@ -16,22 +16,9 @@ public abstract class RequestHandler {
     protected Request request;
     protected Response response;
 
-
-    public RequestHandler(){
-        this(null, null);
-    }
-
-    public RequestHandler(Request request){
-        this(request, null);
-    }
-
     public RequestHandler(Request request, Response response){
         this.response = response;
         this.request = request;
-    }
-
-    public void error(int code){
-        this.response = new Response(code);
     }
 
     public void abort(int code) throws ServerException {

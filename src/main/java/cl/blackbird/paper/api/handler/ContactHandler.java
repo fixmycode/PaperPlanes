@@ -11,13 +11,6 @@ import org.json.JSONObject;
  * Para más información de los métodos revisa el wiki.
  */
 public class ContactHandler extends RequestHandler {
-    public ContactHandler() {
-        this(null, null);
-    }
-
-    public ContactHandler(Request request) {
-        this(request, null);
-    }
 
     public ContactHandler(Request request, Response response) {
         super(request, response);

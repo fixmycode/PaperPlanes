@@ -143,7 +143,11 @@ public class Request {
         String[] status = lines[0].split("\\s");
 
         // Crear el request
-        request = new Request(status[0], status[1]);
+        try {
+            request = new Request(status[0], status[1]);
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new IOException("Malformed Request: "+headerRequest);
+        }
         request.setProtocol(status[2]);
 
         // Llenar los valores del header
