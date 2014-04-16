@@ -8,10 +8,12 @@ import java.net.ServerSocket;
  * El programa que crea la puerta de conexión con la red via HTTP. Esta clase en particular se encarga de levantar el
  * servidor en un hilo del sistema y de crear un nuevo hilo por cada conexión entrante.
  */
-public class Server implements Runnable {
+public class Server {
     private static Configuration configuration;
     private Integer port;
     private boolean listening;
+    private ServerSocket socket;
+
 
     public Server(){
         this(null);
@@ -24,12 +26,13 @@ public class Server implements Runnable {
 
     public void start(int port) throws IOException {
         this.setPort(port);
-        ServerSocket socket = new ServerSocket(port);
+        socket = new ServerSocket(port);
         System.out.println(String.format("Server started at port %d", port));
         listening = true;
-        while (listening) {
+        while (!socket.isClosed()) {
             new ServerThread(socket.accept()).start();
         }
+        listening = false;
     }
 
     public void start() throws IOException {
@@ -55,8 +58,13 @@ public class Server implements Runnable {
     }
 
     public void stop(){
-        this.listening = false;
-        System.out.println(String.format("Server stopped listening to port %d", port));
+        try {
+            socket.close();
+            this.listening = false;
+            System.out.println(String.format("Server stopped listening to port %d", port));
+        } catch (IOException e) {
+            System.out.println("Quietly killing the server...");
+        }
     }
 
     public static void setConfiguration(Configuration config){
@@ -65,15 +73,5 @@ public class Server implements Runnable {
 
     public static Configuration getConfiguration() {
         return configuration;
-    }
-
-    @Override
-    public void run() {
-        try {
-            this.start();
-        } catch (IOException e) {
-            System.out.println("System couldn't start...");
-            e.printStackTrace();
-        }
     }
 }
