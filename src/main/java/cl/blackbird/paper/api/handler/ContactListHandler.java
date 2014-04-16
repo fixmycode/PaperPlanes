@@ -20,14 +20,6 @@ public class ContactListHandler extends RequestHandler {
     private JSONAdapter adapter;
     private ContactManager manager;
 
-    public ContactListHandler() {
-        this(null, null);
-    }
-
-    public ContactListHandler(Request request) {
-        this(request, null);
-    }
-
     public ContactListHandler(Request request, Response response) {
         super(request, response);
         this.manager = new ContactManager();

@@ -10,7 +10,7 @@ import java.util.List;
 public class APIConfiguration implements Configuration {
     private ArrayList<Route> routes;
     public final String handlerClassPath = "cl.blackbird.paper.api.handler";
-    public final String homeDir = "~/Desktop/paper/";
+    public final String homeDir = "/Users/mammut/Desktop/paper/";
 
     public APIConfiguration() {
         this.routes = new ArrayList<Route>();

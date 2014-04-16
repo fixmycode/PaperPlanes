@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 public class TextAdapter implements ContentAdapter {
     private String content;
+    public boolean isHTML = false;
 
     public TextAdapter(){
         this.content = "";
@@ -16,6 +17,9 @@ public class TextAdapter implements ContentAdapter {
 
     @Override
     public String getContentType() {
+        if(isHTML){
+            return "text/html";
+        }
         return "text/plain";
     }
 

@@ -1,16 +1,18 @@
 package cl.blackbird.paper.server.adapter;
 
 import cl.blackbird.paper.server.Server;
+import cl.blackbird.paper.server.ServerException;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.*;
+import java.nio.file.FileSystems;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.HashMap;
 
 public class FileAdapter implements ContentAdapter {
-    private Path fullPath;
     private static HashMap<String, String> MIMETypeMap;
     static {
         MIMETypeMap = new HashMap<String, String>();
@@ -25,20 +27,27 @@ public class FileAdapter implements ContentAdapter {
         MIMETypeMap.put("map",  "application/x-navimap");
     }
 
-    public FileAdapter(){
-        this(null);
-    }
+    private Path fullPath;
+    private FileInputStream inputStream;
 
-    public FileAdapter(String route){
-        this.setRoute(route);
+    public FileAdapter(String route) throws ServerException {
+        if(route != null) {
+            this.setRoute(route);
+        }
     }
 
     private Path createPath(String partialPath) throws InvalidPathException {
         return FileSystems.getDefault().getPath(Server.getConfiguration().getHomeDir(), partialPath);
     }
 
-    public void setRoute(String route){
+    public void setRoute(String route) throws ServerException {
         this.fullPath = createPath(route);
+        try {
+            this.inputStream = new FileInputStream(this.fullPath.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new ServerException(404);
+        }
     }
 
     public String getFullPath(){
@@ -55,20 +64,13 @@ public class FileAdapter implements ContentAdapter {
 
     @Override
     public void writeContent(OutputStream out) {
-        FileInputStream in = null;
-
+        int c;
         try {
-            in = new FileInputStream(this.fullPath.toString());
-
-            int c;
-            while ((c = in.read()) != -1) {
+            while ((c = inputStream.read()) != -1) {
                 out.write(c);
             }
-            in.close();
-
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }catch(IOException e){
+            inputStream.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

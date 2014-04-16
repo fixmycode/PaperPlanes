@@ -1,5 +1,6 @@
 package cl.blackbird.paper.api.handler;
 
+import cl.blackbird.paper.server.ServerException;
 import cl.blackbird.paper.server.adapter.FileAdapter;
 import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
@@ -12,7 +13,7 @@ public class StaticHandler extends RequestHandler{
     }
 
     @Override
-    public void get() {
+    public void get() throws ServerException {
         this.response.setAdapter(new FileAdapter(this.request.getPath()));
         this.response.write();
     }

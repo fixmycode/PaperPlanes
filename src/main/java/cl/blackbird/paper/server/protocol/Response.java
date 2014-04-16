@@ -48,11 +48,11 @@ public class Response {
         this(200);
     }
 
-    public Response(int code){
+    private Response(int code){
         this(code, new TextAdapter());
     }
 
-    public Response(int code, ContentAdapter adapter){
+    private Response(int code, ContentAdapter adapter){
         this.setCode(code);
         this.setAdapter(adapter);
     }
@@ -63,9 +63,15 @@ public class Response {
         return response;
     }
 
+    public static Response createFromError(OutputStream outputStream, int code){
+        Response response = new Response(code);
+        response.outputStream = outputStream;
+        return response;
+    }
+
     public String getStatusMessage(){
         String msg;
-        if((msg = Response.statusMap.get(200)) != null){
+        if((msg = Response.statusMap.get(this.getCode())) != null){
             return msg;
         }
         return "Unknown Status";
@@ -80,6 +86,6 @@ public class Response {
         PrintWriter writer = new PrintWriter(outputStream, true);
         writer.println(String.format("HTTP/1.1 %d %s", this.getCode(), this.getStatusMessage()));
         writer.println(String.format("Content-Type: %s; charset=utf-8", this.adapter.getContentType()));
-        writer.println("");
+        writer.println();
     }
 }

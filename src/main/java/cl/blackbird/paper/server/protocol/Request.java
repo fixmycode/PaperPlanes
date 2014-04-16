@@ -111,7 +111,10 @@ public class Request {
     private Request(String mode, String route){
         this.data = new HashMap<String, String>();
         this.setMode(mode);
-        this.setPath(route);
+        if(route.equals("/"))
+            this.setPath("/index.html");
+        else
+            this.setPath(route);
     };
 
     /**
@@ -140,7 +143,11 @@ public class Request {
         String[] status = lines[0].split("\\s");
 
         // Crear el request
-        request = new Request(status[0], status[1]);
+        try {
+            request = new Request(status[0], status[1]);
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new IOException("Malformed Request: "+headerRequest);
+        }
         request.setProtocol(status[2]);
 
         // Llenar los valores del header
