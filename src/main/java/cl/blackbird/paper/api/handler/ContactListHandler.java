@@ -44,7 +44,10 @@ public class ContactListHandler extends RequestHandler {
             contact.setPort(json.getInt("port"));
             contact.setIpAddress(json.getString("ipAddress"));
             contact.setName(json.getString("name"));
-            manager.saveInstance(contact);
+            contact = manager.saveInstance(contact);
+            json.put("id", contact.getId());
+            this.response.setAdapter(new JSONAdapter(json));
+            this.response.write();
         } catch (JSONException e1) {
             throw new ServerException(500);
         } catch (IOException e) {
