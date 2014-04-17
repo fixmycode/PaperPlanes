@@ -11,7 +11,6 @@ public class ServerWorker extends SwingWorker<Void, Boolean> {
     private Server server;
 
     public ServerWorker(int port){
-        Server.setConfiguration(new APIConfiguration());
         this.server = new Server(port);
     }
 

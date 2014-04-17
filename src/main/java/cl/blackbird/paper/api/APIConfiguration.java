@@ -10,7 +10,7 @@ import java.util.List;
 public class APIConfiguration implements Configuration {
     private ArrayList<Route> routes;
     public final String handlerClassPath = "cl.blackbird.paper.api.handler";
-    public final String homeDir = "/Users/oni/Desktop/paper/";
+    public String homeDir = "/Users/oni/Desktop/paper/";
 
     public APIConfiguration() {
         this.routes = new ArrayList<Route>();
@@ -36,6 +36,11 @@ public class APIConfiguration implements Configuration {
     @Override
     public String getHomeDir() {
         return this.homeDir;
+    }
+
+    @Override
+    public void setHomeDir(String homeDir) {
+        this.homeDir = homeDir;
     }
 
     @Override

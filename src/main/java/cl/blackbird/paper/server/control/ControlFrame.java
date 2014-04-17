@@ -1,5 +1,6 @@
 package cl.blackbird.paper.server.control;
 
+import cl.blackbird.paper.server.Server;
 import cl.blackbird.paper.server.ServerWorker;
 
 import javax.swing.*;
@@ -13,6 +14,10 @@ public class ControlFrame extends JFrame {
     private JToggleButton controlButton;
     private ServerWorker serverWorker;
     private boolean serverListening = false;
+    private JButton configButton;
+    private JTextField pathField;
+    private JButton saveButton;
+    private JLabel pathLabel;
 
     public ControlFrame(){
         initComponents();
@@ -22,6 +27,10 @@ public class ControlFrame extends JFrame {
         portSpinner = new JSpinner();
         portLabel = new JLabel("Puerto:");
         controlButton = new JToggleButton("Iniciar", serverListening);
+        configButton = new JButton("Configurar");
+        pathLabel = new JLabel("Home");
+        pathField = new JTextField(Server.getConfiguration().getHomeDir());
+        saveButton = new JButton("Guardar");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("PaperServer");
@@ -35,14 +44,48 @@ public class ControlFrame extends JFrame {
                 changeServerStatus(e);
             }
         });
+        configButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showConfiguration(e);
+            }
+        });
 
         FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
         getContentPane().setLayout(layout);
-        getContentPane().add(portLabel);
-        getContentPane().add(portSpinner);
         getContentPane().add(controlButton);
+        getContentPane().add(configButton);
 
         setResizable(false);
+        pack();
+    }
+
+    private void showConfiguration(ActionEvent e) {
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveConfiguration(e);
+            }
+        });
+        getContentPane().add(pathLabel);
+        getContentPane().add(pathField);
+        getContentPane().add(portLabel);
+        getContentPane().add(portSpinner);
+        getContentPane().add(saveButton);
+        configButton.setEnabled(false);
+        controlButton.setEnabled(false);
+        pack();
+    }
+
+    private void saveConfiguration(ActionEvent e) {
+        Server.getConfiguration().setHomeDir(pathField.getText());
+        getContentPane().remove(pathField);
+        getContentPane().remove(pathLabel);
+        getContentPane().remove(portLabel);
+        getContentPane().remove(portSpinner);
+        getContentPane().remove(saveButton);
+        configButton.setEnabled(true);
+        controlButton.setEnabled(true);
         pack();
     }
 
@@ -59,7 +102,7 @@ public class ControlFrame extends JFrame {
             this.controlButton.setText("Iniciar");
         }
         this.serverListening = !this.serverListening;
-        this.portSpinner.setEnabled(!this.serverListening);
+        this.configButton.setEnabled(!this.serverListening);
         this.controlButton.setSelected(this.serverListening);
 
 
