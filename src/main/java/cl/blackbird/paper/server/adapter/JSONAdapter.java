@@ -1,27 +1,45 @@
 package cl.blackbird.paper.server.adapter;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
 public class JSONAdapter implements ContentAdapter {
-    private JSONObject json;
+    private JSONObject jsonObject;
+    private JSONArray jsonArray;
 
     public JSONAdapter(){
-        this.json = new JSONObject();
+        this.jsonObject = new JSONObject();
     }
 
     public JSONAdapter(JSONObject obj){
-        this.json = obj;
+        this.jsonObject = obj;
+        this.jsonArray = null;
     }
 
-    public JSONObject getJSON(){
-        return json;
+    public JSONAdapter(JSONArray array){
+        this.jsonArray = array;
+        this.jsonObject = null;
     }
 
-    public void setJSON(JSONObject json){
-        this.json = json;
+    public JSONArray getJSONArray(){
+        return jsonArray;
+    }
+
+    public void setJSONArray(JSONArray array){
+        this.jsonArray = array;
+        this.jsonObject = null;
+    }
+
+    public JSONObject getJsonObject() {
+        return jsonObject;
+    }
+
+    public void setJsonObject(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+        this.jsonArray = null;
     }
 
     @Override
@@ -32,7 +50,11 @@ public class JSONAdapter implements ContentAdapter {
     @Override
     public void writeContent(OutputStream out) {
         PrintWriter writer = new PrintWriter(out, true);
-        json.write(writer);
+        if(jsonObject != null){
+            jsonObject.write(writer);
+        } else if(jsonArray != null){
+            jsonArray.write(writer);
+        }
         writer.println();
     }
 }

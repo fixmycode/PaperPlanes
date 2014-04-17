@@ -7,6 +7,7 @@ import cl.blackbird.paper.server.adapter.JSONAdapter;
 import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,10 +29,7 @@ public class ContactListHandler extends RequestHandler {
 
     @Override
     public void get() {
-        //TODO respuesta real
-        JSONObject json = new JSONObject();
-        json.put("message", "it works!");
-        this.response.setAdapter(new JSONAdapter(json));
+        this.response.setAdapter(new JSONAdapter(new JSONArray(this.manager.getAll())));
         this.response.write();
     }
 
