@@ -19,7 +19,6 @@ public class ServerThread extends Thread {
 
     public ServerThread(Socket socket) {
         super("ServerThread");
-        System.out.println("Creating thread to handle request...");
         this.socket = socket;
     }
 
@@ -32,11 +31,14 @@ public class ServerThread extends Thread {
                         Request.createFromInput(socket.getInputStream()),
                         Response.createForOutput(socket.getOutputStream()));
                 handler.dispatch();
-                System.out.println("Request dispatched!");
-            } catch (ServerException e){
-                e.write(socket.getOutputStream());
+
+                if(handler.isError()){
+                    System.err.println(handler.toString());
+                } else {
+                    System.out.println(handler.toString());
+                }
+
             } catch (SocketTimeoutException e){
-                System.out.println("Thread stopped blocking");
             }
             socket.close();
         } catch (IOException e){

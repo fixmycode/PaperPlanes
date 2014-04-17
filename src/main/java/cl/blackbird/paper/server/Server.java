@@ -63,7 +63,6 @@ public class Server {
             this.listening = false;
             System.out.println(String.format("Server stopped listening to port %d", port));
         } catch (IOException e) {
-            System.out.println("Quietly killing the server...");
         }
     }
 

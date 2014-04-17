@@ -1,5 +1,6 @@
 package cl.blackbird.paper.server;
 
+import cl.blackbird.paper.server.handler.NoRouteHandler;
 import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
@@ -21,15 +22,13 @@ public class Router {
      * @param request la solicitud a revisar
      * @param response la referencia a la respuesta para el cliente
      * @return una referencia al controlador de la solicitud
-     * @throws ServerException
      */
-    public static RequestHandler getHandler(Request request, Response response) throws ServerException {
+    public static RequestHandler getHandler(Request request, Response response) {
         try {
             Route route = Router.solvePath(request.getPath());
             return route.createHandler(request, response);
         } catch (NullPointerException e){
-            e.printStackTrace();
-            throw new ServerException(404);
+            return new NoRouteHandler(request, response);
         }
     }
 

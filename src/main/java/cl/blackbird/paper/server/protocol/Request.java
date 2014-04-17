@@ -172,4 +172,9 @@ public class Request {
 
         return request;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", this.getMode(), this.getPath());
+    }
 }

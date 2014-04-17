@@ -88,4 +88,9 @@ public class Response {
         writer.println(String.format("Content-Type: %s; charset=utf-8", this.adapter.getContentType()));
         writer.println();
     }
+
+    @Override
+    public String toString() {
+        return this.getCode() + " " + this.getStatusMessage();
+    }
 }
