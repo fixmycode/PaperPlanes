@@ -50,6 +50,23 @@ public abstract class ModelManager<T extends BaseModel> {
         return null;
     }
 
+    public boolean deleteInstance(int id) {
+        for(T object : this.objectList){
+            if(object.getId().equals(id)){
+                boolean success = this.objectList.remove(object);
+                if(success){
+                    try {
+                        this.saveList(this.objectList);
+                        return success;
+                    } catch (IOException e) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     protected void buildList(){
         if(this.objectList == null){
             try {
