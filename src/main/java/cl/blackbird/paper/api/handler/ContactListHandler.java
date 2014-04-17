@@ -7,6 +7,7 @@ import cl.blackbird.paper.server.adapter.JSONAdapter;
 import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -36,14 +37,16 @@ public class ContactListHandler extends RequestHandler {
 
     @Override
     public void post() throws ServerException {
-        JSONObject json = new JSONObject(this.request.getParam("payload"));
-        Contact contact = new Contact();
-        contact.setCreatedAt(new Date());
-        contact.setPort(json.getInt("port"));
-        contact.setIpAddress(json.getString("ipAddress"));
-        contact.setName(json.getString("name"));
         try {
+            JSONObject json = new JSONObject(this.request.getParam("payload"));
+            Contact contact = new Contact();
+            contact.setCreatedAt(new Date());
+            contact.setPort(json.getInt("port"));
+            contact.setIpAddress(json.getString("ipAddress"));
+            contact.setName(json.getString("name"));
             manager.saveInstance(contact);
+        } catch (JSONException e1) {
+            throw new ServerException(500);
         } catch (IOException e) {
             e.printStackTrace();
             throw new ServerException(500);
