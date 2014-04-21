@@ -168,6 +168,7 @@ public class Request {
             }
             String payload = new String(outputStream.toByteArray(), "UTF-8");
             request.setParam("payload", payload);
+            System.out.println(request.getParam("payload"));
         }
 
         return request;
