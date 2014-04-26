@@ -161,7 +161,8 @@ public class Request {
             outputStream = new ByteArrayOutputStream();
             ch = input.read();
             int i = 0;
-            while(i++ < Integer.parseInt(request.getParam("Content-Length"))) {
+            int contentLength = Integer.parseInt(request.getParam("Content-Length"));
+            while(i++ < contentLength) {
                 ch = input.read();
                 outputStream.write(ch);
             }
