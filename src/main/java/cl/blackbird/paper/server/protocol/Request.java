@@ -153,22 +153,20 @@ public class Request {
         // Llenar los valores del header
         for(int i = 1 ; i < lines.length; i++) {
             String[] keyValue = lines[i].split(": ", 2);
-            request.setParam(keyValue[0], keyValue[1]);
+            request.setParam(keyValue[0].trim(), keyValue[1].trim());
         }
 
         // Sacar el payload del InputStream
         if (request.getMode().equals("POST") || request.getMode().equals("PUT")) {
             outputStream = new ByteArrayOutputStream();
             ch = input.read();
-            while((ch = input.read()) != -1) {
+            int i = 0;
+            while(i++ < Integer.parseInt(request.getParam("Content-Length"))) {
+                ch = input.read();
                 outputStream.write(ch);
-                if (ch == '\n' || ch == '\r' || ch == '}'){
-                    break;
-                }
             }
             String payload = new String(outputStream.toByteArray(), "UTF-8");
             request.setParam("payload", payload);
-            System.out.println(request.getParam("payload"));
         }
 
         return request;
