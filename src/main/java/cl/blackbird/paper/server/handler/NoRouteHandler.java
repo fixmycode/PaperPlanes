@@ -4,6 +4,11 @@ import cl.blackbird.paper.server.ServerException;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
 
+
+/**
+ * Un manejador específico para casos en que la ruta solicitada no ha sido encontrada por el sistema. Devuelve 404 para
+ * cualquier solicitud.
+ */
 public class NoRouteHandler extends RequestHandler {
 
     public NoRouteHandler(Request request, Response response) {

@@ -3,6 +3,11 @@ package cl.blackbird.paper.server.adapter;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+
+/**
+ * Un adaptador para enviar texto plano directo al cliente.
+ * También puede decir que el texto es HTML con un flag especial.
+ */
 public class TextAdapter implements ContentAdapter {
     private String content;
     public boolean isHTML = false;

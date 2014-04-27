@@ -46,7 +46,6 @@ public class Route {
 
     /**
      * Determina si una ruta a un archivo coincide con la expresión regular que define esta ruta
-     *
      * @param path la ruta a un archivo
      * @return verdadero en el caso de que la ruta coincida con la expresión regular.
      */

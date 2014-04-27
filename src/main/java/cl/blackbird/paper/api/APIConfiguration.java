@@ -9,6 +9,10 @@ import cl.blackbird.paper.server.handler.StaticHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase implementa la interfaz de configuración para cargar la configuración por defecto de la aplicación. También
+ * se pueden modificar estos datos en tiempo de ejecución usando la interfaz gráfica.
+ */
 public class APIConfiguration implements Configuration {
     private ArrayList<Route> routes;
     public String homeDir = "/Users/oni/Desktop/paper/";
@@ -18,6 +22,10 @@ public class APIConfiguration implements Configuration {
         this.initRoutes();
     }
 
+    /**
+     * Se cargan las rutas del API. Cada ruta va acompañada del nombre de la clase manejadora, de esta forma el
+     * enrutador sabe donde encontrar la clase para instanciarla.
+     */
     @Override
     public void initRoutes() {
         this.addRoute("/api/v1/contacts", ContactListHandler.class);

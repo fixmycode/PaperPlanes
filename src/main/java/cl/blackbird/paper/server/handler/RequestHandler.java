@@ -8,7 +8,7 @@ import cl.blackbird.paper.server.ServerException;
 /**
  * La clase base para los controladores. Se encarga de usar el método HTTP correcto para cada solicitud en particular.
  * Guarda una referencia a la solicitud y la respuesta que son utilizadas por las subclases para enviar información al
- * cliente.
+ * cliente. Los modos HTTP soportados hasta ahora son GET, POST, PUT y DELETE.
  *
  * @see cl.blackbird.paper.server.protocol.Request
  * @see cl.blackbird.paper.server.protocol.Response
@@ -27,6 +27,9 @@ public abstract class RequestHandler {
     public abstract void put() throws ServerException;
     public abstract void delete() throws ServerException;
 
+    /**
+     * Usa el método adecuado del manejador dependiendo del modo especificado en la solicitud.
+     */
     public void dispatch() {
         try {
             if (this.request.getMode().equals("GET")) {
@@ -46,6 +49,10 @@ public abstract class RequestHandler {
         }
     }
 
+    /**
+     * En el caso de un error, altera la respuesta de forma que se escriba el código de error en la pantalla del cliente.
+     * @param code el código de error
+     */
     private void error(int code){
         this.response.setCode(code);
         ((TextAdapter) response.getAdapter()).setContent(

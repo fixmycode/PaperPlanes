@@ -20,6 +20,11 @@ public class Contact extends BaseModel {
         return id;
     }
 
+    /**
+     * Este método toma un modelo con datos actualizados y modifica los datos de la instancia que lo llamó. El modelo no
+     * tiene que estar completo, los datos que no estén presentes no se actualizarán.
+     * @param model el modelo con los datos nuevos.
+     */
     @Override
     public void update(BaseModel model) {
         Contact contact = (Contact) model;

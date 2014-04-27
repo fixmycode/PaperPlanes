@@ -7,6 +7,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+/**
+ * Clase que representa la respuesta del servidor hacia el cliente. Posee información de los cabezales y guarda un
+ * puntero al adaptador de contenido correspondiente a cada respuesta.
+ */
 public class Response {
     private static HashMap<Integer, String> statusMap;
     static {

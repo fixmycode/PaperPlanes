@@ -6,6 +6,10 @@ import org.json.JSONObject;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+
+/**
+ * Un adaptador que toma una estructura de objetos JSON y lo devuelve en forma de texto al cliente.
+ */
 public class JSONAdapter implements ContentAdapter {
     private JSONObject jsonObject;
     private JSONArray jsonArray;

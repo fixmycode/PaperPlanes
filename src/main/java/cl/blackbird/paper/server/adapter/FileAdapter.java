@@ -12,6 +12,10 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.HashMap;
 
+
+/**
+ * Un adaptador para devolver archivos estáticos que pueden ser leídos con los flujos de entrada de Java.
+ */
 public class FileAdapter implements ContentAdapter {
     private static HashMap<String, String> MIMETypeMap;
     static {
@@ -36,10 +40,22 @@ public class FileAdapter implements ContentAdapter {
         }
     }
 
+    /**
+     * Convierte una ruta de solicitud a una ruta de sistema de archivos
+     * @param partialPath la ruta de la solicitud
+     * @return la ruta del sistema de archivos partiendo desde el directorio base de la aplicación.
+     * @throws InvalidPathException
+     */
     private Path createPath(String partialPath) throws InvalidPathException {
         return FileSystems.getDefault().getPath(Server.getConfiguration().getHomeDir(), partialPath);
     }
 
+    /**
+     * Busca el archivo en el sistema de archivos de la máquina,
+     * si no lo encuentra emite una excepción 404.
+     * @param route la ruta del archivo en el sistema de archivos.
+     * @throws ServerException
+     */
     public void setRoute(String route) throws ServerException {
         this.fullPath = createPath(route);
         try {

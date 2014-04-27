@@ -22,6 +22,12 @@ public class ContactListHandler extends RequestHandler {
     private JSONAdapter adapter;
     private ContactManager manager;
 
+    /**
+     * Constructor por defecto del manejador, en particular este se encarga de instanciar un nuevo administrador de
+     * contactos.
+     * @param request un puntero a la solicitud
+     * @param response un puntero a la respuesta
+     */
     public ContactListHandler(Request request, Response response) {
         super(request, response);
         this.manager = new ContactManager();

@@ -1,13 +1,17 @@
 package cl.blackbird.paper.server.control;
 
 import cl.blackbird.paper.server.Server;
-import cl.blackbird.paper.server.ServerWorker;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * La clase que controla la interfaz gráfica del servidor.
+ * Posee métodos para iniciar e interactuar con los controles.
+ */
 public class ControlFrame extends JFrame {
     private JSpinner portSpinner;
     private JLabel portLabel;
