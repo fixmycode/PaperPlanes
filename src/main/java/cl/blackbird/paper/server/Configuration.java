@@ -8,5 +8,4 @@ public interface Configuration {
     public List<Route> getRoutes();
     public String getHomeDir();
     public void setHomeDir(String homeDir);
-    public void addRoute(String expression, String className) throws ClassNotFoundException;
 }

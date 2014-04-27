@@ -1,15 +1,16 @@
 package cl.blackbird.paper.api;
 
+import cl.blackbird.paper.api.handler.ContactHandler;
+import cl.blackbird.paper.api.handler.ContactListHandler;
 import cl.blackbird.paper.server.Configuration;
 import cl.blackbird.paper.server.Route;
+import cl.blackbird.paper.server.handler.StaticHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class APIConfiguration implements Configuration {
     private ArrayList<Route> routes;
-    public final String handlerClassPath = "cl.blackbird.paper.api.handler";
     public String homeDir = "/Users/oni/Desktop/paper/";
 
     public APIConfiguration() {
@@ -19,13 +20,9 @@ public class APIConfiguration implements Configuration {
 
     @Override
     public void initRoutes() {
-        try {
-            this.addRoute("/api/v1/contacts", "ContactListHandler");
-            this.addRoute("/api/v1/contacts/(\\d+)", "ContactHandler");
-            this.addRoute("/.*", "StaticHandler");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.addRoute("/api/v1/contacts", ContactListHandler.class);
+        this.addRoute("/api/v1/contacts/(\\d+)", ContactHandler.class);
+        this.addRoute("/.*", StaticHandler.class);
     }
 
     @Override
@@ -43,8 +40,12 @@ public class APIConfiguration implements Configuration {
         this.homeDir = homeDir;
     }
 
-    @Override
-    public void addRoute(String expression, String className) throws ClassNotFoundException {
-        this.routes.add(new Route(expression, handlerClassPath+"."+className));
+    /**
+     * Añade rutas para manejadores resueltos en tiempo de compilación
+     * @param expression la expresión regular relacionada
+     * @param handlerClass la clase
+     */
+    public void addRoute(String expression, Class<?> handlerClass) {
+        this.routes.add(new Route(expression, handlerClass));
     }
 }

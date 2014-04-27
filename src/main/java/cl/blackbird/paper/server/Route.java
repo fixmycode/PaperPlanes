@@ -20,8 +20,12 @@ public class Route {
     private Class<?> handlerClass;
 
     public Route(String expression, String handlerClassName) throws ClassNotFoundException {
+        this(expression, Class.forName(handlerClassName));
+    }
+
+    public Route(String expression, Class<?> handlerClass) {
         this.pattern = Pattern.compile(expression);
-        this.handlerClass = Class.forName(handlerClassName);
+        this.handlerClass = handlerClass;
     }
 
     public RequestHandler createHandler(Request request, Response response) {
