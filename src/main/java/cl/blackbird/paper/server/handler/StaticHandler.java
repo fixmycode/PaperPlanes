@@ -1,11 +1,14 @@
-package cl.blackbird.paper.api.handler;
+package cl.blackbird.paper.server.handler;
 
 import cl.blackbird.paper.server.ServerException;
 import cl.blackbird.paper.server.adapter.FileAdapter;
-import cl.blackbird.paper.server.handler.RequestHandler;
 import cl.blackbird.paper.server.protocol.Request;
 import cl.blackbird.paper.server.protocol.Response;
 
+/**
+ * Manejador para archivos estáticos. Su misión es resolver rutas de archivo, cargarlas en un adaptador de archivos y
+ * enviarlas al usuario.
+ */
 public class StaticHandler extends RequestHandler{
 
     public StaticHandler(Request request, Response response){
