@@ -42,21 +42,51 @@ body {
   padding: 0 10px;
   height: 600px;
   overflow: scroll;
+  position: relative;
 }
 /* line 41, ../sass/screen.scss */
+#chat input[type=text] {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px 10px;
+  margin: 0;
+  height: auto;
+  border: none;
+  border-top: 1px solid #ddd;
+  background: #eee;
+}
+/* line 53, ../sass/screen.scss */
+#chat input[type=text]:focus {
+  box-shadow: none;
+}
+/* line 58, ../sass/screen.scss */
+#chat input[type=submit] {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background: yellowgreen;
+  margin: 0;
+  height: 27px;
+  line-height: 8px;
+  outline: none;
+}
+/* line 70, ../sass/screen.scss */
 #chat p {
   font-size: 12px;
   margin-bottom: 5px;
 }
-/* line 45, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 #chat .text-info {
   color: #94bac6;
 }
-/* line 48, ../sass/screen.scss */
+/* line 77, ../sass/screen.scss */
 #chat .text-success {
   color: yellowgreen;
 }
-/* line 52, ../sass/screen.scss */
+/* line 81, ../sass/screen.scss */
 #chat .text-muted {
   color: gray;
 }

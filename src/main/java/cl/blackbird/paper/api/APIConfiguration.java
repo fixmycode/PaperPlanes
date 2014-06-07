@@ -2,6 +2,7 @@ package cl.blackbird.paper.api;
 
 import cl.blackbird.paper.api.handler.ContactHandler;
 import cl.blackbird.paper.api.handler.ContactListHandler;
+import cl.blackbird.paper.api.handler.MessageHandler;
 import cl.blackbird.paper.server.Configuration;
 import cl.blackbird.paper.server.Route;
 import cl.blackbird.paper.server.handler.StaticHandler;
@@ -29,6 +30,7 @@ public class APIConfiguration implements Configuration {
     @Override
     public void initRoutes() {
         this.addRoute("/api/v1/contacts", ContactListHandler.class);
+        this.addRoute("/api/v1/contacts/(\\d+)/messages", MessageHandler.class);
         this.addRoute("/api/v1/contacts/(\\d+)", ContactHandler.class);
         this.addRoute("/.*", StaticHandler.class);
     }
