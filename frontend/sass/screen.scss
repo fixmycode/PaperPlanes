@@ -29,12 +29,16 @@ body {
 }
 
 #chat {
-    margin-top: 20px;
+    .stream {
+        height: 502px;
+        overflow: scroll;
+    }
+
     background: rgba(255, 255, 255, .8);
     @include box-shadow(0 0 10px lighten($blue, 50%));
     @include border-radius(3px);
     padding: 0 10px;
-    height: 600px;
+    height: 570px;
     overflow: scroll;
     position: relative;
 
@@ -81,4 +85,19 @@ body {
     .text-muted {
         color: gray;
     }
+}
+
+.upload {
+    position: absolute;
+    bottom: 27px;
+    text-transform: capitalize;
+    color: #ddd;
+    left: 0; right: 0;
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0);
+}
+
+.drop-active {
+    color: black;
+    border: 2px dashed #aaa;
 }

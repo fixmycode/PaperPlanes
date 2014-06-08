@@ -29,7 +29,6 @@ body {
 
 /* line 31, ../sass/screen.scss */
 #chat {
-  margin-top: 20px;
   background: rgba(255, 255, 255, 0.8);
   -webkit-box-shadow: 0 0 10px #ddedff;
   -moz-box-shadow: 0 0 10px #ddedff;
@@ -40,11 +39,16 @@ body {
   -o-border-radius: 3px;
   border-radius: 3px;
   padding: 0 10px;
-  height: 600px;
+  height: 570px;
   overflow: scroll;
   position: relative;
 }
-/* line 41, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
+#chat .stream {
+  height: 502px;
+  overflow: scroll;
+}
+/* line 45, ../sass/screen.scss */
 #chat input[type=text] {
   bottom: 0;
   left: 0;
@@ -57,11 +61,11 @@ body {
   border-top: 1px solid #ddd;
   background: #eee;
 }
-/* line 53, ../sass/screen.scss */
+/* line 57, ../sass/screen.scss */
 #chat input[type=text]:focus {
   box-shadow: none;
 }
-/* line 58, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 #chat input[type=submit] {
   position: absolute;
   bottom: 0;
@@ -73,20 +77,38 @@ body {
   line-height: 8px;
   outline: none;
 }
-/* line 70, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 #chat p {
   font-size: 12px;
   margin-bottom: 5px;
 }
-/* line 74, ../sass/screen.scss */
+/* line 78, ../sass/screen.scss */
 #chat .text-info {
   color: #94bac6;
 }
-/* line 77, ../sass/screen.scss */
+/* line 81, ../sass/screen.scss */
 #chat .text-success {
   color: yellowgreen;
 }
-/* line 81, ../sass/screen.scss */
+/* line 85, ../sass/screen.scss */
 #chat .text-muted {
   color: gray;
+}
+
+/* line 90, ../sass/screen.scss */
+.upload {
+  position: absolute;
+  bottom: 27px;
+  text-transform: capitalize;
+  color: #ddd;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0);
+}
+
+/* line 100, ../sass/screen.scss */
+.drop-active {
+  color: black;
+  border: 2px dashed #aaa;
 }

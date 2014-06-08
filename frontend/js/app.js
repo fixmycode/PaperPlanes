@@ -1,19 +1,24 @@
-var APIServer = 'http://localhost:7070';
+// var APIServer = 'http://localhost:7070';
+var APIServer = 'http://dev.chat.io';
 var DELAY = 3000; // 3 segundos de actualizacion
 
-var app = angular.module('app', ['ngResource']);
+var app = angular.module('app', ['ngResource', 'angularFileUpload']);
 
 
-app.controller('ChatController', ['$scope', 'Contact', 'Message', '$timeout', function($scope, Contact, Message, $timeout){
-    $scope.contacts = Contact.query();
+app.controller('ChatController', 
+    ['$scope', 'Contact', 'Message', '$timeout', '$upload',
+    function($scope, Contact, Message, $timeout, $upload){
+    
+    $scope.current = {id: 0};
+    $scope.contacts = Contact.query(function(data) {
+        $scope.current = data[0];
+    });
 
     $scope.name       = '';
     $scope.ip_address = '';
     $scope.port       = '';
 
-    $scope.messages = [];
-
-    var current = {id: 0};
+    $scope.messages = []; 
 
     $scope.toggleSubmitButton = function(){
         var total = 0;
@@ -43,12 +48,12 @@ app.controller('ChatController', ['$scope', 'Contact', 'Message', '$timeout', fu
     };
 
     $scope.loadChat = function(contact) {
-        current = contact;
-        Message.query({id: current.id}, function(data){
+        $scope.current = contact;
+        Message.query({id: $scope.current.id}, function(data){
             angular.forEach(data, function(value, key){
                 message = {
                     created_at: new Date(value.date),
-                    name: current.name,
+                    name: $scope.current.name,
                     content: value.content,
                 }
                 this.push(message);
@@ -56,10 +61,10 @@ app.controller('ChatController', ['$scope', 'Contact', 'Message', '$timeout', fu
         });
     };
 
-    $scope.sendMessage = function(){
+    $scope.sendMessage = function() {
         var message = new Message();
-        message.ip      = current.ipAddress;
-        message.port    = current.port;
+        message.ip      = $scope.current.ipAddress || $scope.current.ip_address;
+        message.port    = $scope.current.port;
         message.message = $scope.newMessage;
         message.$save();
 
@@ -73,13 +78,31 @@ app.controller('ChatController', ['$scope', 'Contact', 'Message', '$timeout', fu
 
         $scope.newMessage = '';
     };
+
+    $scope.onFileSelect = function($files) {
+        $scope.progress = true;
+        for (var i = 0; i < $files.length; i++) {
+          var $file = $files[i];
+          $scope.upload = $upload.upload({
+            url: APIServer + '/api/v1/upload',
+            method: 'POST',
+            file: $file
+          }).progress(function(evt) {
+            console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+          }).success(function(data, status, headers, config) {
+            console.log(data);
+          }).then(function(){
+            $scope.progress = false;
+          });
+        }
+    };
     
     (function tick(){
-        Message.query({id: current.id}, function(data){
+        Message.query({id: $scope.current.id}, function(data){
             angular.forEach(data, function(value, key){
                 message = {
                     created_at: new Date(value.date),
-                    name: current.name,
+                    name: $scope.current.name,
                     content: value.content,
                 }
                 this.push(message);

@@ -82,8 +82,19 @@
             </ul>
         </div>
         <div class="small-7 columns">
+            <h4>{{ current.name }}</h4>
             <div id="chat">
-                <p ng-repeat="message in messages"><span class="text-success">{{message.name}} :</span> {{message.content}}</p>
+                <div class="stream">
+                    <p ng-repeat="message in messages"><span class="text-success">{{message.name}} :</span> {{message.content}}</p>
+                </div>
+                <div class="upload" ng-show="progress">
+                    Subiendo Archivo
+                </div>
+                <div class="upload" ng-show="dropSupported && !progress" ng-file-drag-over-class="drop-active" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">
+                    <input type="file" ng-file-select="onFileSelect($files)" style="display: inline; width: 250px; margin: 0">
+                    Arrastra archivo para enviar
+                </div>
+                <div class="upload" ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
                 <form ng-submit="sendMessage()">
                     <input type="text" ng-model="newMessage" />
                     <input type="submit" value="Enviar" class="button tiny">
@@ -94,7 +105,9 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
+    <script src="bower_components/ng-file-upload/angular-file-upload-shim.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="js/app.js"></script>
     <script>
