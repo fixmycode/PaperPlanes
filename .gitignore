@@ -6,6 +6,9 @@
 *.war
 *.ear
 
+# Bases de datos #
+*.odb
+
 # Archivos del IDE #
 .idea/
 .gradle/

@@ -10,9 +10,7 @@ import cl.blackbird.paper.server.protocol.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class MessageHandler extends RequestHandler {
@@ -40,10 +38,8 @@ public class MessageHandler extends RequestHandler {
         JSONObject json = new JSONObject(this.request.getParam("payload"));
         String ipAddress = json.getString("ip");
         String port = String.valueOf(json.getInt("port"));
-        String content = json.getString("content");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        Message message = new Message(dateFormat.format(new Date()), content);
-        ClientSocket.postMessage(ipAddress+":"+port, message);
+        String content = json.getString("message");
+        Message message = ClientSocket.postMessage(ipAddress+":"+port, content);
         this.response.setAdapter(new JSONAdapter(message.toJSON()));
         this.response.write();
     }
