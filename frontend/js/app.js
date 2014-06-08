@@ -1,5 +1,4 @@
 var APIServer = 'http://localhost:7070';
-
 var DELAY = 3000; // 3 segundos de actualizacion
 
 var app = angular.module('app', ['ngResource']);
@@ -51,9 +50,11 @@ app.controller('ChatController', ['$scope', 'Contact', 'Message', '$timeout', fu
     };
 
     $scope.sendMessage = function(){
-        console.log("From: " + "me ==> ip:port");
-        console.log("To: " +  current.ip_address + ":" + current.port);
-        console.log("Message: " + $scope.newMessage);
+        var message = new Message();
+        message.ip      = current.ip_address;
+        message.port    = current.port;
+        message.message = $scope.newMessage;
+        message.$save();
 
         $scope.newMessage = '';
     };
