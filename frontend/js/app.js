@@ -1,5 +1,4 @@
-// var APIServer = 'http://localhost:7070';
-var APIServer = 'http://dev.chat.io';
+var APIServer = 'http://localhost:7070';
 var DELAY = 3000; // 3 segundos de actualizacion
 
 var app = angular.module('app', ['ngResource', 'angularFileUpload']);
@@ -91,7 +90,8 @@ app.controller('ChatController',
             console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
           }).success(function(data, status, headers, config) {
             console.log(data);
-          }).then(function(){
+            $scope.progress = false;
+          }).error(function(){
             $scope.progress = false;
           });
         }
