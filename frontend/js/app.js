@@ -45,23 +45,45 @@ app.controller('ChatController', ['$scope', 'Contact', 'Message', '$timeout', fu
     $scope.loadChat = function(contact) {
         current = contact;
         Message.query({id: current.id}, function(data){
-            $scope.messages = data;
+            angular.forEach(data, function(value, key){
+                message = {
+                    created_at: new Date(value.date),
+                    name: current.name,
+                    content: value.content,
+                }
+                this.push(message);
+            }, $scope.messages);
         });
     };
 
     $scope.sendMessage = function(){
         var message = new Message();
-        message.ip      = current.ip_address;
+        message.ip      = current.ipAddress;
         message.port    = current.port;
         message.message = $scope.newMessage;
         message.$save();
+
+        msg = {
+            created_at: new Date(),
+            name: "yo",
+            content: message.message,
+        }
+
+        $scope.messages.push(msg);
 
         $scope.newMessage = '';
     };
     
     (function tick(){
         Message.query({id: current.id}, function(data){
-            $scope.messages = data;
+            angular.forEach(data, function(value, key){
+                message = {
+                    created_at: new Date(value.date),
+                    name: current.name,
+                    content: value.content,
+                }
+                this.push(message);
+            }, $scope.messages);
             $timeout(tick, DELAY);
         });
     })();

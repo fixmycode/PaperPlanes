@@ -14,6 +14,7 @@ public class ClientSocket {
     public static void init(String host, int port) throws IOException {
         if(socket == null) {
             socket = new Socket(host, port);
+            socket.setSoTimeout(1000);
             printer = new PrintStream(socket.getOutputStream());
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         }
@@ -33,6 +34,7 @@ public class ClientSocket {
         printer.println("PULL "+address);
         try {
             String response = reader.readLine();
+            System.out.println(response);
             String[] parts = response.split(" ");
             int messageCount = 0;
             int fileCount = 0;
@@ -42,21 +44,23 @@ public class ClientSocket {
             }
             if(messageCount > 0){
                 for(int i = 0; i < messageCount; i++){
-                    readInt();
-                    int length = readInt();
-                    String date = readWord();
-                    String content = readMessage(length);
+                    String[] messageParts = reader.readLine().split(" ", 4);
+                    System.out.println(messageParts[1]+" "+messageParts[2]+" "+messageParts[3]);
+                    String length = messageParts[1];
+                    String date = messageParts[2];
+                    String content = messageParts[3];
                     Message message = new Message(date, content);
                     messages.add(message);
                 }
             }
             if(fileCount > 0){
                 for(int i = 0; i < fileCount; i++){
-                    readInt();
-                    int nameLength = readInt();
-                    String date = readWord();
-                    String fileName = readMessage(nameLength);
-                    Message document = new Message(date, fileName);
+                    String[] messageParts = reader.readLine().split(" ", 4);
+                    System.out.println(messageParts[1]+" "+messageParts[2]+" "+messageParts[3]);
+                    String length = messageParts[1];
+                    String date = messageParts[2];
+                    String content = messageParts[3];
+                    Message document = new Message(date, content);
                     messages.add(document);
                 }
             }

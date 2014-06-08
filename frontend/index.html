@@ -83,7 +83,7 @@
         </div>
         <div class="small-7 columns">
             <div id="chat">
-                <p ng-repeat="message in messages"><span class="text-muted">{{message.created_at}}</span> <span class="text-success">{{message.ip + ":" + message.port}} :</span> {{message.message}}</p>
+                <p ng-repeat="message in messages"><span class="text-success">{{message.name}} :</span> {{message.content}}</p>
                 <form ng-submit="sendMessage()">
                     <input type="text" ng-model="newMessage" />
                     <input type="submit" value="Enviar" class="button tiny">

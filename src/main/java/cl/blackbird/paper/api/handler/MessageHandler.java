@@ -1,5 +1,7 @@
 package cl.blackbird.paper.api.handler;
 
+import cl.blackbird.paper.api.model.Contact;
+import cl.blackbird.paper.api.model.ContactManager;
 import cl.blackbird.paper.api.model.Message;
 import cl.blackbird.paper.client.ClientSocket;
 import cl.blackbird.paper.server.ServerException;
@@ -15,22 +17,29 @@ import java.util.ArrayList;
 
 public class MessageHandler extends RequestHandler {
 
+    private final ContactManager manager;
+
     public MessageHandler(Request request, Response response) {
         super(request, response);
+        manager = new ContactManager();
     }
 
     @Override
     public void get() throws ServerException {
-        String[] parts = this.request.getPathParts();
-        String ipAddress = parts[parts.length-2];
-        String port = parts[parts.length-1];
-        ArrayList<Message> messages = ClientSocket.getMessages(ipAddress + ":" + port);
-        JSONArray array = new JSONArray();
-        for(Message m : messages) {
-            array.put(m.toJSON());
+        int id = Integer.valueOf(this.request.getLastPart());
+        Contact contact = this.manager.getInstance(id);
+        if(contact != null){
+            ArrayList<Message> messages = ClientSocket.getMessages(contact.getIpAddress() + ":" + contact.getPort());
+            JSONArray array = new JSONArray();
+            for(Message m : messages) {
+                array.put(m.toJSON());
+            }
+            this.response.setAdapter(new JSONAdapter(array));
+            this.response.write();
+        } else {
+            throw new ServerException(404);
         }
-        this.response.setAdapter(new JSONAdapter(array));
-        this.response.write();
+
     }
 
     @Override
