@@ -83,7 +83,7 @@ app.controller('ChatController',
         for (var i = 0; i < $files.length; i++) {
           var $file = $files[i];
           $scope.upload = $upload.upload({
-            url: APIServer + '/api/v1/upload',
+            url: APIServer + '/api/v1/upload/'+$scope.current.id,
             method: 'POST',
             file: $file
           }).progress(function(evt) {

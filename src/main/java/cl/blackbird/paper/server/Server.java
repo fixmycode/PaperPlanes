@@ -30,7 +30,6 @@ public class Server {
         this.setPort(port);
         socket = new ServerSocket(port);
         System.out.println(String.format("Server started at port %d", port));
-        ClientSocket.init("127.0.0.1", 7777);
         listening = true;
         while (!socket.isClosed()) {
             new ServerThread(socket.accept()).start();
@@ -64,7 +63,6 @@ public class Server {
     public void stop(){
         try {
             socket.close();
-            ClientSocket.destroy();
             this.listening = false;
             System.out.println(String.format("Server stopped listening to port %d", port));
         } catch (IOException e) {
