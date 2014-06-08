@@ -30,8 +30,8 @@ public class APIConfiguration implements Configuration {
     @Override
     public void initRoutes() {
         this.addRoute("/api/v1/contacts", ContactListHandler.class);
-        this.addRoute("/api/v1/contacts/(\\d+)/messages", MessageHandler.class);
         this.addRoute("/api/v1/contacts/(\\d+)", ContactHandler.class);
+        this.addRoute("/api/v1/messages/", MessageHandler.class);
         this.addRoute("/.*", StaticHandler.class);
     }
 

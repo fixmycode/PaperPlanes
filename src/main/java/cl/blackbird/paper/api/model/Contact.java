@@ -1,6 +1,7 @@
 package cl.blackbird.paper.api.model;
 
 import cl.blackbird.paper.data.BaseModel;
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -89,5 +90,15 @@ public class Contact extends BaseModel {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public JSONObject toJSON(){
+        JSONObject json = new JSONObject();
+        json.put("id", this.id);
+        json.put("name", this.name);
+        json.put("port", this.port);
+        json.put("ipAddress", this.ipAddress);
+        return json;
     }
 }

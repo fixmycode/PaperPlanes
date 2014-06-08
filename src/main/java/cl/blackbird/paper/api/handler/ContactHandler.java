@@ -36,12 +36,7 @@ public class ContactHandler extends RequestHandler {
         int id = Integer.valueOf(this.request.getLastPart());
         Contact contact = this.manager.getInstance(id);
         if(contact != null){
-            JSONObject json = new JSONObject();
-            json.put("id", contact.getId());
-            json.put("name", contact.getName());
-            json.put("port", contact.getPort());
-            json.put("ipAddress", contact.getIpAddress());
-            this.response.setAdapter(new JSONAdapter(json));
+            this.response.setAdapter(new JSONAdapter(contact.toJSON()));
             this.response.write();
         } else {
             throw new ServerException(404);
