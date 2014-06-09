@@ -37,7 +37,7 @@ public class ClientSocket {
         }
     }
 
-    public static ArrayList<Message> getMessages(String address) {
+    public synchronized static ArrayList<Message> getMessages(String address) {
         ArrayList<Message> messages = new ArrayList<Message>();
         if(socket == null){
             return messages;
@@ -81,7 +81,7 @@ public class ClientSocket {
         return messages;
     }
 
-    public static Message postMessage(String destiny, String content) {
+    public synchronized static Message postMessage(String destiny, String content) {
         if(socket == null){
             return null;
         }
