@@ -1,4 +1,4 @@
-var APIServer = 'http://localhost:7070';
+var APIServer = '';
 var DELAY = 3000; // 3 segundos de actualizacion
 
 var app = angular.module('app', ['ngResource', 'angularFileUpload']);
@@ -97,7 +97,7 @@ app.controller('ChatController',
         }
     };
     
-    (function tick(){
+    $scope.loadMessages = function(){
         Message.query({id: $scope.current.id}, function(data){
             angular.forEach(data, function(value, key){
                 message = {
@@ -107,15 +107,14 @@ app.controller('ChatController',
                 }
                 this.push(message);
             }, $scope.messages);
-            $timeout(tick, DELAY);
         });
-    })();
+    };
 }]);
 
 app.factory('Contact', ['$resource', function($resource) {
-    return $resource(APIServer + '/api/v1/contacts/:id');
+    return $resource(APIServer + '/api/v1/contacts/:id', {}, {timeout: DELAY});
 }]);
 
 app.factory('Message', ['$resource', function($resource) {
-    return $resource(APIServer + '/api/v1/messages/:id');
+    return $resource(APIServer + '/api/v1/messages/:id', {}, {timeout: DELAY});
 }]);

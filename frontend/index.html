@@ -95,6 +95,7 @@
                     Arrastra archivo para enviar
                 </div>
                 <div class="upload" ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+                <a class="button tiny" id="load-messages" ng-click="loadMessages()">Cargar Mensajes Nuevos</a>
                 <form ng-submit="sendMessage()">
                     <input type="text" ng-model="newMessage" />
                     <input type="submit" value="Enviar" class="button tiny">
