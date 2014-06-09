@@ -112,3 +112,16 @@ body {
   color: black;
   border: 2px dashed #aaa;
 }
+
+/* line 105, ../sass/screen.scss */
+#load-messages {
+  position: absolute;
+  bottom: 0;
+  right: 71px;
+  z-index: 1;
+  background: #0068dd;
+  margin: 0;
+  height: 27px;
+  line-height: 8px;
+  outline: none;
+}
