@@ -4,6 +4,7 @@ import cl.blackbird.paper.api.model.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class ClientSocket {
@@ -11,12 +12,18 @@ public class ClientSocket {
     private static PrintStream printer;
     private static Socket socket;
 
-    public static void init(String host, int port) throws IOException {
-        if(socket == null) {
-            socket = new Socket(host, port);
-            socket.setSoTimeout(1000);
-            printer = new PrintStream(socket.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    public static void init(String host, int port) {
+        try {
+            if(socket == null) {
+                socket = new Socket(host, port);
+                socket.setSoTimeout(1000);
+                printer = new PrintStream(socket.getOutputStream());
+                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            }
+        } catch (UnknownHostException e) {
+            System.out.println("Can't connect to a PaperServer in "+host+":"+port);
+        } catch (IOException e) {
+            System.out.println("Couldn't connect to PaperServer");
         }
     }
 
@@ -26,11 +33,15 @@ public class ClientSocket {
             reader.close();
             printer.close();
             socket.close();
+            socket = null;
         }
     }
 
     public static ArrayList<Message> getMessages(String address) {
         ArrayList<Message> messages = new ArrayList<Message>();
+        if(socket == null){
+            return messages;
+        }
         printer.println("PULL "+address);
         try {
             String response = reader.readLine();
@@ -71,6 +82,9 @@ public class ClientSocket {
     }
 
     public static Message postMessage(String destiny, String content) {
+        if(socket == null){
+            return null;
+        }
         int length = content.getBytes().length;
         printer.println(String.format("PUSH %s %d %s", destiny, length, content));
         try {
